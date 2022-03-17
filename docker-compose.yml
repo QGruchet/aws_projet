@@ -12,7 +12,7 @@ services:
     restart: always
     volumes:
       - ./app:/app
-    command: sh -c 'npm install && npm start dev'
+    command: sh -c 'while true; do sleep 5; done' # 'npm i install -g && nodemon server.js'
 
   db:
     image: postgres:alpine

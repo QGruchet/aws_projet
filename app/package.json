@@ -5,10 +5,13 @@
 	"author": "",
 	"main": "server.js",
 	"scripts": {
-	  "start": "node server.js"
+		"preinstall": "npm i nodemon -g",
+		"start": "nodemon server.js"
 	},
 	"dependencies": {
-	  "express": "^4.17.3"
+		"express": "^4.17.3",
+		"watch": "^0.13.0"
+	},
+	"devDependencies": {
 	}
-  }
-  
+}
