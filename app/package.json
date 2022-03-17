@@ -1,0 +1,14 @@
+{
+	"name": "guess-my-draw-madaire",
+	"version": "1.0.0",
+	"description": "A simple Pictionary, but better.",
+	"author": "",
+	"main": "server.js",
+	"scripts": {
+	  "start": "node server.js"
+	},
+	"dependencies": {
+	  "express": "^4.17.3"
+	}
+  }
+  
