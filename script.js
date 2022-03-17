@@ -15,9 +15,8 @@ window.addEventListener('load', () => {
     ctx.strokeText('Guess My Draw', window.innerWidth / 2, 20);
 
     ctx.lineWidth = 5;
-    ctx.strokeRect(window.innerWidth / 4, window.innerHeight / 4
-        , (window.innerWidth / 2)
-        , (window.innerHeight / 2));
+    ctx.strokeRect(window.innerWidth / 4, window.innerHeight / 8, 
+        window.innerWidth / 2, window.innerHeight / 5 * 3);
 
     // placeholders for future things
     ctx.fillText("List of players", 30
@@ -51,13 +50,6 @@ window.addEventListener('load', () => {
             ctx.fillRect(j * 30 + 420, i * 30 + 540, 30, 30);
         }
     }
-    /*
-ctx.lineWidth = 5;
-ctx.beginPath();
-ctx.moveTo(400,400);
-ctx.lineTo(400,100);
-ctx.stroke();
-*/
 
     ctx.strokeStyle = "red";
     ctx.beginPath();
@@ -79,11 +71,19 @@ ctx.stroke();
         ctx.lineWidth = 4;
         ctx.lineCap = "round";
 
+        /*(window.innerWidth / 4, window.innerHeight / 8, 
+        window.innerWidth / 2, window.innerHeight / 5 * 3) */
+
         //test to see if the drawing occurs in the drawing rectangle
-        if (e.clientY >= window.innerHeight / 4
-            && e.clientY <= (window.innerHeight / 4) * 3
-            && e.clientX >= window.innerWidth / 4
-            && e.clientX <= (window.innerWidth / 4) * 3)
+        /*if (e.clientY >= window.innerHeight / 8 + 5
+            && e.clientY <= window.innerHeight / 5 * 3 - 5
+            && e.clientX >= window.innerWidth / 4 + 5
+            && e.clientX <= window.innerWidth / 2 - 5)
+            ctx.lineTo(e.clientX, e.clientY);*/
+        if (e.clientX >= window.innerWidth / 4 + 2.5
+            && e.clientX <= window.innerWidth / (4 / 3)- 2.5
+            && e.clientY >= window.innerHeight / 8 + 2.5
+            && e.clientY <= window.innerHeight / 8 + window.innerHeight / (5 / 3) - 2.5)
             ctx.lineTo(e.clientX, e.clientY);
         //ctx.fillRect(e.clientX,e.clientY,20,20);
         ctx.stroke();
