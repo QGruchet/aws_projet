@@ -3,7 +3,7 @@
 const express = require('express');
 
 // Constants
-const PORT = 8080;
+const PORT = 80;
 const HOST = '0.0.0.0';
 
 // App
@@ -16,12 +16,8 @@ app.get('/ping', (req, res) => {
   res.send('pong');
 });
 
-app.get('/test', (req, res) => {
-  res.send('plop');
-});
-
-app.get('users/profile', (req, res) => {
-  res.send('profile');
+app.get('/send-json', (req, res) => {
+  res.send(JSON.stringify({ id: 24535, name: 'Patrick' }));
 });
 
 app.listen(PORT, HOST);
