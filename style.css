@@ -53,6 +53,43 @@ body {
 }
 
 a {
-    margin-left: 10px;
-    margin-top: 10px;
+    margin: 100px 10px 10px 10px;
+}
+
+button:focus {
+    border-radius: 10px;
+    background-color: aqua;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+button:hover {
+    opacity: 0.7;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+button {
+    height: 80px;
+    width: 100px;
+    background-color: transparent;
+    border-color: transparent;
+    border-radius: 20px;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+#save:before {
+    content: "\2714";
+}
+
+#pen:before {
+    content: "\270E";
+}
+
+#rst:before {
+    content: "\2716";
+}
+
+#rub:before {
+    content: "\2601"
 }
