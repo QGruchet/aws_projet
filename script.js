@@ -1,93 +1,105 @@
-window.addEventListener('load', () => {
-    const canvas = document.querySelector("#canvas");
-    const ctx = canvas.getContext('2d');
+class Drawing {
+    constructor(canvas) {
+        this.dessin = false;
+        this.prevX = 0;
+        this.prevY = 0;
 
-    ///resizing
-    canvas.height = window.innerHeight; 
-    canvas.width = window.innerWidth;
+        this.canvas = document.querySelector(canvas);
+        this.context = this.canvas.getContext("2d");
 
-    //console.log("hello");
+        // Draw in the canvas
 
-    //drawing the rectangle that delimits the drawing space
-    //values will be changed later
-    ctx.strokeStyle = "black";
-    ctx.lineWidth = 5;
-    ctx.strokeRect(window.innerWidth/4,window.innerHeight/4
-                    ,(window.innerWidth/4)*2
-                    ,(window.innerHeight/4)*2);
-   
-    // placeholders for future things
-    ctx.fillText("List of players", 30 
-                                    , 30)
-    ctx.strokeRect(10,10
-                        ,(window.innerWidth/4)-20
-                        ,window.innerHeight-20);
-    
-    
-    ctx.fillText("Chat/answers", window.innerWidth/4*3+30 
-                        , 30)
+        this.context.lineWidth = 1;
+        this.context.strokeStyle = "red";
+        this.context.globalAlpha = 0.5;
 
-    ctx.strokeRect(window.innerWidth/4*3+10
-                        ,10
-                            ,(window.innerWidth/4)-20
-                            ,window.innerHeight-20);
-    
-    
-    ctx.fillText("Drawing options", window.innerWidth/4+30 
-                            , window.innerHeight/4*3+30)
-    
-    ctx.strokeRect(window.innerWidth/4+10
-                            ,window.innerHeight/4*3+10
-                                ,(window.innerWidth/2)-20
-                                ,window.innerHeight/4-20);                        
-                            /*
-    ctx.lineWidth = 5;
-    ctx.beginPath();
-    ctx.moveTo(400,400);
-    ctx.lineTo(400,100);
-    ctx.stroke();
-        */
+        this.canvas.addEventListener("mousedown", (e) => {
+            this.dessin = true;
+            this.prevX = (e.clientX - this.canvas.offsetLeft) * this.canvas.width / this.canvas.clientWidth;
+            this.prevY = (e.clientY - this.canvas.offsetTop) * this.canvas.height / this.canvas.clientHeight;
 
-    ctx.strokeStyle = "red";
-    ctx.beginPath();
 
-    //variables
-    let painting = false;
+        })
 
-    //functions
-    function startPosition(e){
-        painting = true;
-        draw(e);
+        this.canvas.addEventListener("mouseup", (e) => {
+            this.dessin = false;
+        })
+
+        this.canvas.addEventListener("mouseout", (e) => {
+            this.dessin = false;
+        })
+
+        this.canvas.addEventListener("mousemove", (e) => {
+            if(this.dessin === true) {
+                let currX = (e.clientX - this.canvas.offsetLeft) * this.canvas.width / this.canvas.clientWidth;
+                let currY = (e.clientY - this.canvas.offsetTop) * this.canvas.height / this.canvas.clientHeight;
+                this.context.beginPath();
+                this.context.moveTo(this.prevX, this.prevY);
+                this.context.lineTo(currX, currY)
+                this.context.closePath();
+                this.context.stroke()
+                this.prevX = currX
+                this.prevY = currY
+            }
+        })
     }
-    function finishedPosition(){
-        painting = false;
-        ctx.beginPath();
+
+    erase() {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
     }
-    function draw(e){
-        if(!painting) return;
-        ctx.lineWidth = 13;
-        ctx.lineCap = "round";
 
-        //test to see if the drawing occurs in the drawing rectangle
-        if (e.clientY >= window.innerHeight/4 
-            && e.clientY <= (window.innerHeight/4)*3
-            && e.clientX >= window.innerWidth/4 
-            && e.clientX <= (window.innerWidth/4)*3)
-        ctx.lineTo(e.clientX, e.clientY);
-        //ctx.fillRect(e.clientX,e.clientY,20,20);
-        ctx.stroke();
-        
-        //I haven't found a nice way to draw points yet
-
-        
+    increaseLineWidth() {
+        this.context.lineWidth += 0.5
     }
-    //EventListeners
-    canvas.addEventListener("mousedown", startPosition);
-    canvas.addEventListener("mouseup", finishedPosition);
-    canvas.addEventListener("mousemove", draw);
-})
 
-window.addEventListener('resize', function(event) {
-    canvas.height = window.innerHeight; 
-    canvas.width = window.innerWidth;
-});
+    decreaseLineWidth() {
+        this.context.lineWidth -= 0.5
+    }
+
+    increaseOpacity() {
+        this.context.globalAlpha += 0.1
+    }
+
+    decreaseOpacity() {
+        this.context.globalAlpha -= 0.1
+    }
+
+    undo() {
+
+    }
+}
+
+window.onload = () => {
+
+    let canvas = new Drawing('#DrawingArea')
+
+    document.querySelector("#reset").addEventListener("click", () => {
+        canvas.erase()
+    })
+
+    document.getElementById('download').addEventListener("click", () => {
+        const link = document.createElement('a');
+        link.download = 'filename.png';
+        link.href = document.getElementById('DrawingArea').toDataURL()
+        document.getElementById('DrawingArea').appendChild(link)
+        link.click();
+    })
+
+    document.getElementById("increaseLineWidth").addEventListener("click", () => {
+        canvas.increaseLineWidth()
+    })
+
+    document.getElementById("decreaseLineWidth").addEventListener("click", () => {
+        canvas.decreaseLineWidth()
+    })
+
+    document.getElementById("increaseOpacity").addEventListener("click", () => {
+        canvas.increaseOpacity()
+    })
+
+    document.getElementById("decreaseOpacity").addEventListener("click", () => {
+        canvas.decreaseOpacity()
+    })
+
+
+}
