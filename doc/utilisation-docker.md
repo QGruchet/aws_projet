@@ -11,7 +11,7 @@ Voici quelques brèves explications sur son utilisation.
 docker compose up --build
 ```
 
-Cette commande permet de construire et lancer les conteneurs composé de 2 services pour le moment :
+Cette commande permet de construire et lancer les conteneurs composés de 2 services pour le moment :
 - Le serveur node qui gère la partie backend
 - La base de données Postgres
 
