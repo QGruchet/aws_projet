@@ -26,29 +26,42 @@
 
         <div class="DrawingOptions">
 
-            <a id="download" download="image.png">
-                <button type="button">Save as PNG</button>
+            <a id="colorPicker">
+                <input type="color" class="color-picker">
+            </a>
+
+            <a id="rangeLineWidth">
+                Line Width :
+                <input type="range" class="lineWidth" min="1" max = "99" value="25">
+                <label class="rangeVal">25</label>
+            </a>
+
+            <a id="rangeOpacity">
+                Opacity :
+                <input type="range" class="opacity" min="1" max = "99" value="99">
+                <label class="opacityVal">100</label>
             </a>
 
             <a id="reset">
-                <button type="button">Clear the canvas</button>
+                <button id="rst" type="button"> Clear</button>
             </a>
 
-            <a id="increaseLineWidth">
-               <button type="button">Increase the line width</button>
+            <a id="rubber">
+                <button id="rub" type="button"> Rubber</button>
             </a>
 
-            <a id="decreaseLineWidth">
-                <button type="button">Decrease the line width</button>
+            <a id="pencil">
+                <button id="pen" type="button"> Pencil</button>
             </a>
 
-            <a id="increaseOpacity">
-                <button type="button">Increase opacity</button>
+            <a id="download" download="image.png">
+                <button id="save" type="button"> Save </button>
             </a>
 
-            <a id="decreaseOpacity">
-                <button type="button">Decrease opacity</button>
+            <a id="fillCanva">
+                <button id="fill" type="button"> Fill</button>
             </a>
+
         </div>
 
         <script src="script.js"></script>
