@@ -13,7 +13,7 @@ class Drawing {
         // Draw in the canvas
 
         this.context.lineWidth = 5;
-        this.context.strokeStyle = "black";
+        this.context.strokeStyle = "#000000";
         this.context.globalAlpha = 0.5;
         this.prevColor = this.context.strokeStyle;
         this.prevOpacity = this.context.globalAlpha;
@@ -98,6 +98,13 @@ class Drawing {
             this.prevOpacity = e.target.value / 100;
         })
     }
+
+    fill() {
+        this.context.beginPath()
+        this.context.rect(0, 0, this.canvas.width, this.canvas.height)
+        this.context.fillStyle = this.context.strokeStyle
+        this.context.fill()
+    }
 }
 
 window.onload = () => {
@@ -143,5 +150,9 @@ window.onload = () => {
     // Pour changer la transparence du trait
     document.getElementById("rangeOpacity").addEventListener("click", () => {
         canvas.changeOpacity()
+    })
+
+    document.getElementById("fillCanva").addEventListener("click", () => {
+        canvas.fill()
     })
 }
