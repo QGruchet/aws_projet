@@ -12,9 +12,9 @@ class Drawing {
 
         // Draw in the canvas
 
-        this.context.lineWidth = 5;
+        this.context.lineWidth = 2.5;
         this.context.strokeStyle = "#000000";
-        this.context.globalAlpha = 0.5;
+        this.context.globalAlpha = 1;
         this.prevColor = this.context.strokeStyle;
         this.prevOpacity = this.context.globalAlpha;
         this.prevLineWidth = this.context.lineWidth;
