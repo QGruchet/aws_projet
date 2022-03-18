@@ -9,7 +9,50 @@
     <title>Pictionnary AWS</title>
 </head>
 <body>
-    <canvas id="canvas"></canvas>
-    <script src="script.js"></script>
+    <div class="container">
+        <div class="title">
+            Let's Draw(madaire)
+        </div>
+
+        <canvas class="canvas" id="DrawingArea"></canvas>
+
+        <div class="ListPlayers">
+            ListPlayers
+        </div>
+
+        <div class="Tchat">
+            Tchat
+        </div>
+
+        <div class="DrawingOptions">
+
+            <a id="download" download="image.png">
+                <button type="button">Save as PNG</button>
+            </a>
+
+            <a id="reset">
+                <button type="button">Clear the canvas</button>
+            </a>
+
+            <a id="increaseLineWidth">
+               <button type="button">Increase the line width</button>
+            </a>
+
+            <a id="decreaseLineWidth">
+                <button type="button">Decrease the line width</button>
+            </a>
+
+            <a id="increaseOpacity">
+                <button type="button">Increase opacity</button>
+            </a>
+
+            <a id="decreaseOpacity">
+                <button type="button">Decrease opacity</button>
+            </a>
+        </div>
+
+        <script src="script.js"></script>
+
+    </div>
 </body>
 </html> 
