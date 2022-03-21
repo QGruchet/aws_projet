@@ -16,6 +16,24 @@ body {
     height: 100%;
 }
 
+.container > .logo {
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.logo > img {
+    width: 100%;
+    height: auto;
+    margin-left: 50px;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+}
+.logo > img:hover {
+    -webkit-transform : scale(1.3);
+    transform: scale(1.3);
+}
+
 .container > .canvas {
     grid-area: 2 / 2 / 6 / 3;
     border: black solid;
@@ -24,9 +42,10 @@ body {
 }
 
 .container > .ListPlayers {
-    grid-area: 1 / 1 / 7 / 2;
+    grid-area: 2 / 1 / 7 / 2;
     border: black solid;
     border-radius: 10px;
+    align-content: center;
 }
 
 .container > .title {
@@ -37,7 +56,6 @@ body {
     grid-area: 6 / 2 / 7 / 3;
     border: black solid;
     border-radius: 10px;
-
 }
 
 .Tchat {
