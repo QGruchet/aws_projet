@@ -6,6 +6,8 @@ class Drawing {
         this.prevColor = null;
         this.prevOpacity = null;
         this.prevLineWidth = null;
+        this.points=[];
+
 
         this.canvas = document.querySelector(canvas);
         this.context = this.canvas.getContext("2d");
@@ -23,14 +25,14 @@ class Drawing {
             this.dessin = true;
             this.prevX = (e.clientX - this.canvas.offsetLeft) * this.canvas.width / this.canvas.clientWidth;
             this.prevY = (e.clientY - this.canvas.offsetTop) * this.canvas.height / this.canvas.clientHeight;
+
+            this.points.push({x:this.prevX, y: this.prevY, size: this.prevLineWidth, color:this.prevColor, mode:"begin"})
+
         })
 
-        this.canvas.addEventListener("mouseup", (e) => {
+        this.canvas.addEventListener("mouseup" || "mouseout", (e) => {
             this.dessin = false;
-        })
-
-        this.canvas.addEventListener("mouseout", (e) => {
-            this.dessin = false;
+            this.points.push({x:this.prevX, y: this.prevY, size: this.prevLineWidth, color:this.prevColor, mode:"end"})
         })
 
         this.canvas.addEventListener("mousemove", (e) => {
@@ -45,6 +47,7 @@ class Drawing {
                 this.prevX = currX
                 this.prevY = currY
 
+                this.points.push({x:this.prevX, y: this.prevY, size: this.prevLineWidth, color:this.prevColor, mode:"draw"})
             }
         })
     }
@@ -105,6 +108,39 @@ class Drawing {
         this.context.fillStyle = this.context.strokeStyle
         this.context.fill()
     }
+
+    redrawAll(){
+        if(this.points.length === 0){
+            return;
+        }
+        this.context.clearRect(0,0, this.canvas.width, this.canvas.height);
+        for(let i = 0; i < this.points.length; i++) {
+            const pt = this.points[i];
+            let begin = false;
+            if(this.context.lineWidth !== pt.size) {
+                this.context.lineWidth = pt.size;
+                begin=true;
+            }
+            if(this.context.strokeStyle !== pt.color) {
+                this.context.strokeStyle = pt.color;
+                begin=true;
+            }
+            if(pt.mode === "begin" || begin){
+                this.context.beginPath();
+                this.context.moveTo(pt.x,pt.y);
+            }
+            this.context.lineTo(pt.x, pt.y);
+            if(pt.mode === "end" || (i === this.points.length-1)) {
+                this.context.stroke();
+            }
+        }
+        this.context.stroke();
+    }
+
+    undoLast(){
+        this.points.pop();
+        this.redrawAll();
+    }
 }
 
 window.onload = () => {
@@ -154,5 +190,9 @@ window.onload = () => {
 
     document.getElementById("fillCanva").addEventListener("click", () => {
         canvas.fill()
+    })
+
+    document.getElementById("undo").addEventListener("click", () => {
+        canvas.undoLast()
     })
 }

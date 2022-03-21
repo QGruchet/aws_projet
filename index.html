@@ -10,8 +10,12 @@
 </head>
 <body>
     <div class="container">
+        <div class="logo">
+            <img src="logo.png">
+        </div>
+
         <div class="title">
-            Let's Draw(madaire)
+
         </div>
 
         <canvas class="canvas" id="DrawingArea"></canvas>
@@ -31,14 +35,17 @@
             </a>
 
             <a id="rangeLineWidth">
-                Line Width :
-                <input type="range" class="lineWidth" min="1" max = "99" value="25">
+                <label> Line Width :
+                    <input type="range" class="lineWidth" min="1" max = "99" value="25">
+                </label>
                 <label class="rangeVal">25</label>
             </a>
 
             <a id="rangeOpacity">
-                Opacity :
-                <input type="range" class="opacity" min="1" max = "99" value="99">
+
+                <label> Opacity :
+                    <input type="range" class="opacity" min="1" max = "99" value="99">
+                </label>
                 <label class="opacityVal">100</label>
             </a>
 
@@ -60,6 +67,10 @@
 
             <a id="fillCanva">
                 <button id="fill" type="button"> Fill</button>
+            </a>
+
+            <a id="undo">
+                <button id="und" type="button"> Undo</button>
             </a>
 
         </div>
