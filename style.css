@@ -76,7 +76,7 @@ a {
 
 button:focus {
     border-radius: 10px;
-    background-color: aqua;
+    background-color: #5f9ea0;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
 }
@@ -114,4 +114,8 @@ button {
 
 #fill:before {
     content: "\26AB"
+}
+
+#und:before {
+    content: "\27A5";
 }
