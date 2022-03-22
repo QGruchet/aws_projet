@@ -5,6 +5,7 @@ html {
 
 body {
     height: 98%;
+    background-color: bisque;
 }
 
 .container {
@@ -38,7 +39,6 @@ body {
     grid-area: 2 / 2 / 6 / 3;
     border: black solid;
     border-radius: 10px;
-
 }
 
 .container > .ListPlayers {
@@ -46,6 +46,7 @@ body {
     border: black solid;
     border-radius: 10px;
     align-content: center;
+    background-color: beige;
 }
 
 .container > .title {
@@ -56,16 +57,55 @@ body {
     grid-area: 6 / 2 / 7 / 3;
     border: black solid;
     border-radius: 10px;
+    background-color: beige;
+}
+
+.menu {
+    grid-area: 1 / 3 / 2 / 4;
+    display: inline-grid;
+    grid-template-columns: 50% auto;
+}
+
+.menu button{
+    position: relative;
+    top: -330%;
+}
+
+#sU,
+#con {
+    background-color: white;
+    align-items: end;
+    grid-area: 2 / 2;
+    width: 100%;
+    height: 150%;
+    border-radius: 20px;
+}
+
+#sU:hover,
+#con:hover {
+    opacity: 0.7;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+#sU:focus,
+#con:focus {
+    color: white;
+    border-radius: 10px;
+    background-color: #364c63;
+    box-shadow: 0 5px #666;
+    transform: translateY(2px);
 }
 
 .Tchat {
-    grid-area: 1 / 3 / 7 / 4;
+    grid-area: 2 / 3 / 7 / 4;
     border: black solid;
     border-radius: 10px;
+    background-color: beige;
+    margin-top: -20%;
 }
 
 #DrawingArea {
-    width: 100%;
+    width: 99.5%;
     height: 97%;
     background-color: white;
 }
@@ -74,19 +114,38 @@ a {
     margin: 100px 10px 10px 10px;
 }
 
-button:focus {
+#rst:focus,
+#rub:focus,
+#und:focus,
+#pen:focus,
+#save:focus,
+#fill:focus,
+#round:focus {
     border-radius: 10px;
-    background-color: #5f9ea0;
+    background-color: #364c63;
     box-shadow: 0 5px #666;
     transform: translateY(4px);
+    color: white;
 }
 
-button:hover {
+#rst:hover,
+#rub:hover,
+#und:hover,
+#pen:hover,
+#save:hover,
+#fill:hover,
+#round:hover {
     opacity: 0.7;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
-button {
+#rst,
+#rub,
+#und,
+#pen,
+#save,
+#fill,
+#round{
     height: 80px;
     width: 100px;
     background-color: transparent;
