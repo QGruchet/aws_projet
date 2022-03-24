@@ -20,5 +20,10 @@ app.get('/send-json', (req, res) => {
   res.send(JSON.stringify({ id: 24535, name: 'Patrick' }));
 });
 
+app.get('/print-req', (req, res) => {
+  console.log(req);
+  res.send('ok');
+});
+
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
