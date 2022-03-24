@@ -5,6 +5,8 @@
 Docker va vous permettre de travailler sur le projet sans installer ses dépendances directement sur votre environnement de travail.
 Voici quelques brèves explications sur son utilisation.
 
+⚠️ : Docker doit être installé sur votre environnement de travail.
+
 ## Lancement du serveur
 
 ```sh
