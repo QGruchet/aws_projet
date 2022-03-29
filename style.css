@@ -119,8 +119,7 @@ a {
 #und:focus,
 #pen:focus,
 #save:focus,
-#fill:focus,
-#round:focus {
+#fill:focus {
     border-radius: 10px;
     background-color: #364c63;
     box-shadow: 0 5px #666;
@@ -133,8 +132,7 @@ a {
 #und:hover,
 #pen:hover,
 #save:hover,
-#fill:hover,
-#round:hover {
+#fill:hover {
     opacity: 0.7;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
