@@ -30,12 +30,16 @@ class Drawing {
 
         })
 
-        this.canvas.addEventListener("mouseup" || "mouseout", (e) => {
+        this.canvas.addEventListener("mouseup", () => {
             this.dessin = false;
             this.points.push({x:this.prevX, y: this.prevY, size: this.prevLineWidth, color:this.prevColor, mode:"end"})
         })
 
-        this.canvas.addEventListener("mousemove", (e) => {
+        this.canvas.addEventListener("mouseout", () => {
+            this.dessin = false
+        })
+
+            this.canvas.addEventListener("mousemove", (e) => {
             if(this.dessin === true) {
                 let currX = (e.clientX - this.canvas.offsetLeft) * this.canvas.width / this.canvas.clientWidth;
                 let currY = (e.clientY - this.canvas.offsetTop) * this.canvas.height / this.canvas.clientHeight;
@@ -54,6 +58,7 @@ class Drawing {
 
     erase() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height)
+        this.points = []
     }
 
     rubber() {
@@ -66,7 +71,17 @@ class Drawing {
         this.context.globalAlpha = this.prevOpacity
         this.context.strokeStyle = this.prevColor
         this.context.lineWidth = this.prevLineWidth
-        console.log(this.prevColor + "  " + this.prevOpacity)
+    }
+
+    drawCircle() {
+        this.canvas.addEventListener('click', (e) => {
+            let x = (e.clientX - this.canvas.offsetLeft) * this.canvas.width / this.canvas.clientWidth;
+            let y = (e.clientY - this.canvas.offsetTop) * this.canvas.height / this.canvas.clientHeight;
+            this.context.beginPath()
+            this.context.arc(x, y, 20, 0, 2 * Math.PI)
+            this.context.closePath();
+            this.context.stroke();
+        })
     }
 
     changeColor() {
@@ -123,6 +138,7 @@ class Drawing {
             }
             if(this.context.strokeStyle !== pt.color) {
                 this.context.strokeStyle = pt.color;
+                this.prevColor = pt.color;
                 begin=true;
             }
             if(pt.mode === "begin" || begin){
@@ -195,4 +211,5 @@ window.onload = () => {
     document.getElementById("undo").addEventListener("click", () => {
         canvas.undoLast()
     })
+
 }
