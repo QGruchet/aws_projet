@@ -1,8 +1,10 @@
 version: '3.9'
 services:
-  back:
+  app:
     build: .
     container_name: app
+    environment:
+      - PORT=80
     depends_on:
       - db
     links:
@@ -12,7 +14,7 @@ services:
     restart: always
     volumes:
       - ./app:/app
-    command: sh -c 'npm i install -g && npm start dev'
+    command: dev
 
   db:
     image: postgres:alpine

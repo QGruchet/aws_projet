@@ -1,7 +1,5 @@
 FROM node:16-alpine
 
-COPY ./app .
+ENV PATH=$PATH:/home/node/.npm-global/bin
 WORKDIR /app
-
-RUN npm install -g nodemon
-RUN npm install
+ENTRYPOINT npm ci && npm start
