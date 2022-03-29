@@ -35,7 +35,7 @@ class Drawing {
             this.points.push({x:this.prevX, y: this.prevY, size: this.prevLineWidth, color:this.prevColor, mode:"end"})
         })
 
-        this.canvas.addEventListener("mouseout", (e) => {
+        this.canvas.addEventListener("mouseout", () => {
             this.dessin = false
         })
 
@@ -71,7 +71,6 @@ class Drawing {
         this.context.globalAlpha = this.prevOpacity
         this.context.strokeStyle = this.prevColor
         this.context.lineWidth = this.prevLineWidth
-        console.log(this.prevColor + "  " + this.prevOpacity)
     }
 
     drawCircle() {
@@ -139,6 +138,7 @@ class Drawing {
             }
             if(this.context.strokeStyle !== pt.color) {
                 this.context.strokeStyle = pt.color;
+                this.prevColor = pt.color;
                 begin=true;
             }
             if(pt.mode === "begin" || begin){
@@ -212,10 +212,4 @@ window.onload = () => {
         canvas.undoLast()
     })
 
-    document.getElementById("circle").addEventListener('click', () => {
-        canvas.drawCircle()
-    })
-
 }
-
-window.o
