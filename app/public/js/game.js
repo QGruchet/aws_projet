@@ -231,14 +231,14 @@ window.onload = () => {
     // User click on "Rubber" button
     document.getElementById("rubber").addEventListener("click", () => {
         // Change the cursor to make sure user doing what he wants
-        document.body.style.cursor = "url(\"rubber.cur\") 0 20, auto"
+        document.body.style.cursor = "url(\"../assets/rubber.cur\") 0 20, auto"
         canvas.rubber()
     })
 
     // User click on "pencil" button
     document.getElementById("pencil").addEventListener("click", () => {
         // Change the cursor to make sure user doing what he wants
-        document.body.style.cursor = "url(\"pencil.cur\") 0 22, auto"
+        document.body.style.cursor = "url(\"../assets/pencil.cur\") 0 22, auto"
         canvas.draw()
     })
 

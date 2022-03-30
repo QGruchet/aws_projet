@@ -1,3 +1,3 @@
 # aws_projet
 
-![](logo) 
+![](app/public/images/logo.png) 

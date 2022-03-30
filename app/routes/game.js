@@ -4,7 +4,7 @@ const router = express.Router();
 
 // Home page
 router.get('/', function(req, res, next) {
-  res.sendFile(path.join(__dirname, '../public/html/index.html'));
+  res.sendFile(path.join(__dirname, '../public/html/game.html'));
 });
 
 module.exports = router;
