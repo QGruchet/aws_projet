@@ -10,7 +10,7 @@ Voici quelques brèves explications sur son utilisation.
 ## Lancement du serveur
 
 ```sh
-docker compose up --build
+docker-compose up --build
 ```
 
 Cette commande permet de construire et lancer les conteneurs composés de 2 services pour le moment :
