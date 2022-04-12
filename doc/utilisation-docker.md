@@ -52,6 +52,7 @@ Avec le mot de passe `admin`.
 
 ```sh
 docker system prune -a
+docker volume rm $(docker volume ls -q)
 ````
 
 ⚠️ : Cette commande supprime uniquement les ressources qui ne sont pas utilisées par les conteneurs en cours d'exécution.
