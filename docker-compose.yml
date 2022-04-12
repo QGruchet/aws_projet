@@ -5,8 +5,8 @@ services:
     container_name: adminer
     depends_on:
       - db
-    env_file:
-      - adminer/.env
+    environment:
+      - ADMINER_DESIGN=pepa-linha-dark
     ports:
       - 8080:8080
     restart: always
@@ -24,10 +24,23 @@ services:
     volumes:
       - ./api:/app
 
+  client:
+    build: .
+    container_name: client
+    depends_on:
+      - api
+    environment:
+    - PORT=80
+    ports:
+      - 80:80
+    restart: always
+    volumes:
+      - ./client:/app
+
   db:
     image: postgres:alpine
     container_name: db
-    env_file:
+    environment:
       - db/.env
     ports:
       - 5432:5432
