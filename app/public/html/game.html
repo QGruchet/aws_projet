@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name = "viewport" 
-            content="width=device-width, initial-scale=1.0"/>
-    <meta http-equiv= "X-UA-compatible" content="ie=edge"/>
-    <link rel="icon" href="../images/favicon.ico"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-compatible" content="ie=edge" />
+    <link rel="icon" href="../images/favicon.ico" />
     <link rel="stylesheet" href="../css/game.css">
     <title>Pictionnary AWS</title>
 </head>
+
 <body>
     <div class="container">
         <!-- Div contain the logo -->
@@ -54,7 +55,7 @@
 
             <a id="rangeLineWidth">
                 <label> Line Width :
-                    <input type="range" class="lineWidth" min="1" max = "99" value="25">
+                    <input type="range" class="lineWidth" min="1" max="99" value="25">
                 </label>
                 <label class="rangeVal">25</label>
             </a>
@@ -62,7 +63,7 @@
             <a id="rangeOpacity">
 
                 <label> Opacity :
-                    <input type="range" class="opacity" min="1" max = "99" value="99">
+                    <input type="range" class="opacity" min="1" max="99" value="99">
                 </label>
                 <label class="opacityVal">100</label>
             </a>
@@ -92,8 +93,9 @@
             </a>
         </div>
 
-        <script src="../js/game.js"></script>
-
+        <script type="module" src="../js/game.js"></script>
+        <script src="http://localhost/socket.io/socket.io.js"></script>
     </div>
 </body>
-</html> 
+
+</html>
