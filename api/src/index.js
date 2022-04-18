@@ -27,3 +27,47 @@ const port = 3000;
 app.listen(port, () => {
   console.log(`Listening on port ${port}...`);
 });
+
+// USERS SERVICE
+var users = [];
+
+function findUser(userId) {
+  if (userId < 0)
+    throw new Error("Not found");
+  return [userId];
+}
+
+function askFriend(fromId, toId) {
+  /* ... */
+}
+
+// USERS GATEWAY
+const userNamespace = io.sockets.of('/user');
+
+gameNamespace.on('connection', (socket) => {
+  console.log('Client connected - /user: ' + socket.id)
+  // FromId: number, toId: number
+  socket.on('ask-friend', (data) => {
+    userService.askFriend(data.fromId, data.toId);
+    socket.broadcast.emit('ask-friend', data);
+  })
+})
+
+// GAME GATEWAY
+const gameNamespace = io.sockets.of('/game');
+
+gameNamespace.on('connection', (socket) => {
+  console.log('Client connected - /game: ' + socket.id)
+  socket.on('draw', (data) => socket.broadcast.emit('draw', data))
+  socket.on('pencil', (data) => socket.broadcast.emit('pencil', data))
+  socket.on('rubber', (data) => socket.broadcast.emit('rubber', data))
+  socket.on('color', (color) => socket.broadcast.emit('color', color))
+  socket.on('lineWidth', (data) => socket.broadcast.emit('lineWidth', data))
+  socket.on('opacity', (data) => socket.broadcast.emit('opacity', data))
+  socket.on('clear', () => socket.broadcast.emit('clear'))
+  socket.on('fill', (color) => socket.broadcast.emit('fill', color))
+  socket.on('undo', (points) => socket.broadcast.emit('undo', points))
+  socket.on('disconnect', () => console.log('Client disconnected'))
+})
+
+module.exports = app;
