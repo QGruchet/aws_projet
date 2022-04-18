@@ -4,6 +4,8 @@ const pgp = require('pg-promise')();
 
 // Application configuration
 const app = express();
+const server = require('http').createServer(app)
+const io = require('socket.io')(server)
 app.use(cors());
 app.use(express.json());
 
@@ -42,19 +44,14 @@ function askFriend(fromId, toId) {
 }
 
 // USERS GATEWAY
-const userNamespace = io.sockets.of('/user');
+const userNamespace = io.of('/user');
 
-gameNamespace.on('connection', (socket) => {
+userNamespace.on('connection', (socket) => {
   console.log('Client connected - /user: ' + socket.id)
-  // FromId: number, toId: number
-  socket.on('ask-friend', (data) => {
-    userService.askFriend(data.fromId, data.toId);
-    socket.broadcast.emit('ask-friend', data);
-  })
 })
 
 // GAME GATEWAY
-const gameNamespace = io.sockets.of('/game');
+const gameNamespace = io.of('/game');
 
 gameNamespace.on('connection', (socket) => {
   console.log('Client connected - /game: ' + socket.id)
