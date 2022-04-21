@@ -1,5 +1,10 @@
 const socket = io('http://localhost:80');
 
+ 
+/*window.onclick = function(e) {
+    socket.emit('message', 'hello world');
+};*/
+
 /**
  * A class who representing a drawing
  */

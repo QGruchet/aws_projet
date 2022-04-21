@@ -46,6 +46,34 @@ app.use('/', indexRouter);
 var gameRouter = require('./routes/game');
 app.use('/game', gameRouter);
 
+//fonctions socket du tchat
+io.on('connection', (socket) => {
+  console.log('a user connected');
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+});
+
+io.on('connection', (socket) => {
+  socket.on('chat message', (msg) => {
+    console.log('message: ' + msg);
+  });
+});
+
+io.emit('some event', { someProperty: 'some value', otherProperty: 'other value' }); // This will emit the event to all connected sockets
+
+io.on('connection', (socket) => {
+  socket.broadcast.emit('hi');
+});
+
+io.on('connection', (socket) => {
+  socket.on('chat message', (msg) => {
+    io.emit('chat message', msg);
+  });
+});
+
+
+
 // Start listening to requests
 server.on('listening', () => {
   console.log('Listening on port ' + port)
