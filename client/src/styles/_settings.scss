@@ -1,0 +1,46 @@
+@font-face {
+  font-family: "font-1";
+}
+
+$font-1: "font-1", sans-serif;
+
+$color-1: #FFBB98;
+$color-2: salmon;
+$color-3: #282c34;
+$white: rgb(243, 243, 243);
+
+@mixin verticalCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  background-color: #FFFFFF;
+  color: #000000;
+}
+
+body {
+  background: $white;
+  font-family: $font-1;
+}
+
+p, h1, h2 {
+  margin: 5%;
+}
+
+
+
+li {
+  list-style-type: none;
+  padding-left: -10px;
+  color: #FBE0C3;
+}
+
+#Logo {
+  position: center;
+  margin-left: 35%;
+}

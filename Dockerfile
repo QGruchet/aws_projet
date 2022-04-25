@@ -1,5 +1,5 @@
-FROM node:16-alpine
+FROM node:alpine
 
-ENV PATH=$PATH:/home/node/.npm-global/bin
 WORKDIR /app
+USER node
 ENTRYPOINT npm ci && npm start

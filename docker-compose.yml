@@ -1,26 +1,47 @@
 version: '3.9'
 services:
-  app:
-    build: .
-    container_name: app
-    environment:
-      - PORT=80
+  adminer:
+    image: adminer
+    container_name: adminer
     depends_on:
       - db
-    links:
+    environment:
+      - ADMINER_DESIGN=pepa-linha-dark
+    ports:
+      - 8080:8080
+    restart: always
+
+  api:
+    build: .
+    container_name: api
+    depends_on:
       - db
+    env_file:
+      - db/.env
+    ports:
+      - 3000:3000
+    restart: always
+    volumes:
+      - ./api:/app
+
+  client:
+    build: .
+    container_name: client
+    depends_on:
+      - api
+    environment:
+    - PORT=80
     ports:
       - 80:80
     restart: always
     volumes:
-      - ./app:/app
-    command: dev
+      - ./client:/app
 
   db:
     image: postgres:alpine
     container_name: db
     env_file:
-      - config/db.env
+      - db/.env
     ports:
       - 5432:5432
     restart: always

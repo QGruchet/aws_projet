@@ -1,0 +1,182 @@
+.container{
+
+  html {
+    width: 100%;
+    height: 100%;
+  }
+
+  body {
+
+    height: 98%;
+    background-color: bisque;
+    /*cursor: url("../assets/pencil.cur") 0 22, auto;*/
+  }
+
+  .container {
+    display: grid;
+    grid-template-columns: 20% 1fr 20%;
+    grid-column-gap: 15px;
+  }
+
+  .container > .logo {
+    grid-area: 1 / 1 / 2 / 2;
+  }
+
+  .logo > img {
+    width: 45%;
+    height: auto;
+    margin-left: 50px;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+  }
+  .logo > img:hover {
+    -webkit-transform : scale(1.3);
+    transform: scale(1.3);
+  }
+
+  .container > .canvas {
+    grid-area: 2 / 2 / 6 / 3;
+    border: black solid;
+    border-radius: 10px;
+  }
+
+  .container > .ListPlayers {
+    grid-area: 2 / 1 / 7 / 2;
+    border: black solid;
+    border-radius: 10px;
+    align-content: center;
+    background-color: beige;
+    margin-left: 5px;
+  }
+
+  .container > .title {
+    grid-area: 1 / 2 / 2 / 3;
+  }
+
+  .container > .DrawingOptions {
+    grid-area: 6 / 2 / 7 / 3;
+    border: black solid;
+    border-radius: 10px;
+    background-color: beige;
+    height: 100%;
+  }
+
+  .menu {
+    grid-area: 1 / 3 / 2 / 4;
+    display: inline-grid;
+    grid-template-columns: 50% auto;
+  }
+
+  .menu button{
+    position: relative;
+    top: -330%;
+  }
+
+  #sU,
+  #con {
+    background-color: white;
+    align-items: end;
+    grid-area: 2 / 2;
+    width: 100%;
+    height: 150%;
+    border-radius: 20px;
+  }
+
+  #sU:hover,
+  #con:hover {
+    opacity: 0.7;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  }
+
+  #sU:focus,
+  #con:focus {
+    color: white;
+    border-radius: 10px;
+    background-color: #364c63;
+    box-shadow: 0 5px #666;
+    transform: translateY(2px);
+  }
+
+  .Tchat {
+    grid-area: 2 / 3 / 7 / 4;
+    border: black solid;
+    border-radius: 10px;
+    background-color: beige;
+    margin-top: -20%;
+  }
+
+  #DrawingArea {
+    width: 99.5%;
+    height: 97%;
+    background-color: white;
+  }
+
+  a {
+    margin: 100px 10px 10px 10px;
+  }
+
+  #rst:focus,
+  #rub:focus,
+  #und:focus,
+  #pen:focus,
+  #save:focus,
+  #fill:focus {
+    border-radius: 10px;
+    background-color: #364c63;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+    color: white;
+  }
+
+  #rst:hover,
+  #rub:hover,
+  #und:hover,
+  #pen:hover,
+  #save:hover,
+  #fill:hover {
+    opacity: 0.7;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  }
+
+  #rst,
+  #rub,
+  #und,
+  #pen,
+  #save,
+  #fill,
+  #round{
+    height: 80px;
+    width: 100px;
+    background-color: transparent;
+    border-color: transparent;
+    border-radius: 20px;
+    margin-top: 1%;
+    margin-bottom: 1%;
+  }
+
+  #save:before {
+    content: "\2714";
+  }
+
+  #pen:before {
+    content: "\270E";
+  }
+
+  #rst:before {
+    content: "\2716";
+  }
+
+  #rub:before {
+    content: "\2601"
+  }
+
+  #fill:before {
+    content: "\26AB"
+  }
+
+  #und:before {
+    content: "\27A5";
+  }
+}
