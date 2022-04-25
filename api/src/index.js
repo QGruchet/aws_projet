@@ -7,6 +7,7 @@ const app = express();
 const server = require('http').createServer(app)
 const io = require('socket.io')(server)
 app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Database configuration
@@ -24,24 +25,13 @@ app.get('/', (req, res) => {
   res.send(`Welcome to ${process.env.npm_package_name}!`)
 });
 
+app.use('/user', require('./routes/user.route'));
+
 // Start listening to requests
 const port = 3000;
 app.listen(port, () => {
   console.log(`Listening on port ${port}...`);
 });
-
-// USERS SERVICE
-var users = [];
-
-function findUser(userId) {
-  if (userId < 0)
-    throw new Error("Not found");
-  return [userId];
-}
-
-function askFriend(fromId, toId) {
-  /* ... */
-}
 
 // USERS GATEWAY
 const userNamespace = io.of('/user');
