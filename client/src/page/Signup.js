@@ -1,8 +1,8 @@
 import Navigation from "../components/Navigation";
-
 import React from 'react';
 import { useFormik } from 'formik';
 import {NavLink} from "react-router-dom";
+import API from "../utils/api";
 
 const validate = values => {
     const errors = {};
@@ -35,7 +35,14 @@ const SigninForm = () => {
         },
         validate,
         onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
+          API.post('/user/sign-up', values)
+          .then(function (response) {
+            alert("You have successfully signed up!");
+            console.log(response.data);
+          })
+          .catch(function (error) {
+            alert("Error: " + error.response.data);
+          });
         },
     });
     return (
