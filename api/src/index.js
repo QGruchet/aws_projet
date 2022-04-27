@@ -21,23 +21,35 @@ const db = pgp({
 });
 
 // Routes configuration
-app.get('/', (req, res) => {
-  res.send(`Welcome to ${process.env.npm_package_name}!`)
+app.get('/', (_req, res) => {
+  res.sendFile(__dirname + '/index.html');
 });
 
 app.use('/user', require('./routes/user.route'));
 
+io.on('connection', (socket) => {
+  console.log(`User ${socket.id} connected`);
+  socket.on('disconnect', () => {
+    console.log(`User ${socket.id} disconnected`);
+  });
+  socket.on('chat message', (msg) => {
+    console.log('message received:', msg);
+    io.emit('chat message', msg);
+  });
+});
+
 // Start listening to requests
 const port = 3000;
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Listening on port ${port}...`);
 });
 
+/*
 // USERS GATEWAY
 const userNamespace = io.of('/user');
 
 userNamespace.on('connection', (socket) => {
-  console.log('Client connected - /user: ' + socket.id)
+  console.log('Client connected - /user: ' + socket.id);
 })
 
 // GAME GATEWAY
@@ -56,5 +68,4 @@ gameNamespace.on('connection', (socket) => {
   socket.on('undo', (points) => socket.broadcast.emit('undo', points))
   socket.on('disconnect', () => console.log('Client disconnected'))
 })
-
-module.exports = app;
+*/
