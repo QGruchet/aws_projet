@@ -14,12 +14,12 @@ class UserController {
   }
 
   login(req, res) {
-    const { email_or_username, password } = req.body;
-    if (!email_or_username)
+    const { login, password } = req.body;
+    if (!login)
       return res.status(httpStatus.StatusCodes.BAD_REQUEST).send('No email or username provided');
     if (!password)
       return res.status(httpStatus.StatusCodes.BAD_REQUEST).send('No password provided');
-    const user = userService.authenticate(email_or_username, password);
+    const user = userService.authenticate(login, password);
     if (!user)
       return res.status(httpStatus.StatusCodes.UNAUTHORIZED).send('Invalid email or password');
     const accessToken = user.generateAccessToken();

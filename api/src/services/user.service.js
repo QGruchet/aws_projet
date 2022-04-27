@@ -8,13 +8,13 @@ class UserService {
 
   /**
    * Try to authenticate a user.
-   * @param {string} email_or_login The email or username of the user.
+   * @param {string} login The username or email address of the user.
    * @param {string} password The password of the user.
    * @returns The user or undefined if not found.
    */
-  authenticate(email_or_login, password) {
+  authenticate(login, password) {
     const hashedPassword = crypto.sha256(password);
-    return this.users.find(u => (u.email === email_or_login || u.username === email_or_login)
+    return this.users.find(u => (u.email === login || u.username === login)
       && u.password === hashedPassword)
   }
 
