@@ -11,14 +11,10 @@ const validate = values => {
 
     if (!values.pseudo) {
         errors.pseudo = '*Required';
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.pseudo)) {
-        errors.pseudo = '*Invalid pseudo';
     }
 
     if (!values.password) {
         errors.password = '*Required';
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.password)) {
-        errors.password = '*Password must be stronger';
     }
 
     return errors;
@@ -58,7 +54,7 @@ const SignupForm = () => {
                 <input
                     id="password"
                     name="password"
-                    type="text"
+                    type="password"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.password}
