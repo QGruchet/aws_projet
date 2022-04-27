@@ -17,6 +17,7 @@ services:
     depends_on:
       - db
     env_file:
+      - api/.env
       - db/.env
     ports:
       - 3000:3000
