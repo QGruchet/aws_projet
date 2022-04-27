@@ -1,3 +1,5 @@
+const shajs = require('sha.js')
+
 var users = [];
 var nextUserId = 0;
 
@@ -51,4 +53,13 @@ exports.findById = function (id) {
  */
 exports.findByUsername = function (username) {
   return users.find(u => u.username === username);
+}
+
+/**
+ * Hash a password.
+ * @param {string} password
+ * @returns The hashed password.
+ */
+exports.hashPassword = function (password) {
+  return shajs('sha256').update(password).digest('hex');
 }
