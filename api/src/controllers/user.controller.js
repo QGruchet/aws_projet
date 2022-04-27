@@ -5,12 +5,15 @@ exports.me = (req, res) => {
 
 }
 
+exports.printList = (req, res) => {
+  res.send(userService.findAll());
+}
+
 exports.profile = (req, res) => {
   const id = req.query.id;
   if (!id)
     return res.status(httpStatus.StatusCodes.BAD_REQUEST).send('No id provided');
-  console.log(`get profile: ${id}`);
-  const user = userService.findById(id);
+  const user = userService.findById(Number(id));
   if (!user)
     return res.status(httpStatus.StatusCodes.NOT_FOUND).send('User not found');
   res.send(user);

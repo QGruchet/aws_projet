@@ -19,6 +19,14 @@ exports.create = function (username, email, password) {
 }
 
 /**
+ * Finds all users.
+ * @returns The list of users.
+ */
+exports.findAll = function () {
+  return users;
+}
+
+/**
  * Finds a user by email.
  * @param {string} email
  * @returns The user or undefined if not found.
