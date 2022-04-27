@@ -1,5 +1,3 @@
-import { useMemo, useState } from "react";
-import { Form, Input, Textarea, useFormValidation } from "reactjs-forms";
 import Navigation from "../components/Navigation";
 
 import React from 'react';
@@ -9,8 +7,8 @@ import {NavLink} from "react-router-dom";
 const validate = values => {
     const errors = {};
 
-    if (!values.pseudo) {
-        errors.pseudo = '*Required';
+    if (!values.login) {
+        errors.login = '*Required';
     }
 
     if (!values.password) {
@@ -23,7 +21,7 @@ const validate = values => {
 const SignupForm = () => {
     const formik = useFormik({
         initialValues: {
-            pseudo: '',
+            login: '',
             password: '',
         },
         validate,
@@ -36,18 +34,18 @@ const SignupForm = () => {
             <Navigation/>
             <form onSubmit={formik.handleSubmit}>
 
-                <label htmlFor="pseudo"/>
+                <label htmlFor="login"/>
                 <input
-                    id="pseudo"
-                    name="pseudo"
+                    id="login"
+                    name="login"
                     type="text"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    value={formik.values.pseudo}
-                    placeholder={"Pseudo"}
+                    value={formik.values.login}
+                    placeholder={"Username or email address"}
                 />
-                {formik.touched.pseudo && formik.errors.pseudo ? (
-                    <div id={"error"}>{formik.errors.pseudo}</div>
+                {formik.touched.login && formik.errors.login ? (
+                    <div id={"error"}>{formik.errors.login}</div>
                 ) : null}
 
                 <label htmlFor="password"/>
@@ -58,7 +56,7 @@ const SignupForm = () => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.password}
-                    placeholder={"Secret password"}
+                    placeholder={"Password"}
                 />
                 {formik.touched.password && formik.errors.password ? (
                     <div id={"error"}>{formik.errors.password}</div>
