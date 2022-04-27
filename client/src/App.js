@@ -6,7 +6,8 @@ import Notfound from "./page/Notfound";
 import About from "./page/About";
 import HowPlay from "./page/HowPlay";
 import Game from "./page/Game";
-import Sign from "./page/Sign";
+import SignupForm from "./page/Signup";
+import SigninForm from "./page/Signin";
 
 const App = () => {
     return(
@@ -16,7 +17,8 @@ const App = () => {
                 <Route path="/About" exact element={<About/>} />
                 <Route path="/HowPlay" exact element={<HowPlay/>} />
                 <Route path="/Play" exact element={<Game/>}/>
-                <Route path="/Sign" exact element={<Sign/>}/>
+                <Route path="/Signup" exact element={<SignupForm/>}/>
+                <Route path="/Signin" exact element={<SigninForm/>}/>
                 <Route path="*" element={<Notfound/>} />
             </Routes>
         </BrowserRouter>
