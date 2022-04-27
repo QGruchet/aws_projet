@@ -1,65 +1,69 @@
-const shajs = require('sha.js')
+const User = require('../models/user.model');
+const crypto = require('../utils/crypto.util')
 
-var users = [];
-var nextUserId = 0;
+class UserService {
+  constructor() {
+    this.users = [];
+  }
 
-/**
- * Creates a new user.
- * @param {string} username
- * @param {string} email
- * @param {string} password
- */
-exports.create = function (username, email, password) {
-  var user = {
-    id: ++nextUserId,
-    username: username,
-    email: email,
-    password: password
-  };
-  users.push(user);
-  return user;
+  /**
+   * Try to authenticate a user.
+   * @param {string} email_or_login The email or username of the user.
+   * @param {string} password The password of the user.
+   * @returns The user or undefined if not found.
+   */
+  authenticate(email_or_login, password) {
+    const hashedPassword = crypto.sha256(password);
+    return this.users.find(u => (u.email === email_or_login || u.username === email_or_login)
+      && u.password === hashedPassword)
+  }
+
+  /**
+   * Creates a new user.
+   * @param {string} username
+   * @param {string} email
+   * @param {string} password
+   */
+  create(username, email, password) {
+    const user = new User(username, email, password);
+    this.users.push(user);
+    return user;
+  }
+
+  /**
+   * Finds all users.
+   * @returns The list of users.
+   */
+  findAll() {
+    return this.users;
+  }
+
+  /**
+   * Finds a user by email.
+   * @param {string} email
+   * @returns The user or undefined if not found.
+   */
+  findByEmail(email) {
+    return this.users.find(u => u.email === email);
+  }
+
+  /**
+   * Finds a user by id.
+   * @param {number} id
+   * @returns The user or undefined if not found.
+   */
+  findById(id) {
+    return this.users.find(u => u.id === id);
+  }
+
+  /**
+   * Finds a user by username.
+   * @param {string} username
+   * @returns The user or undefined if not found.
+   */
+  findByUsername(username) {
+    return this.users.find(u => u.username === username);
+  }
 }
 
-/**
- * Finds all users.
- * @returns The list of users.
- */
-exports.findAll = function () {
-  return users;
-}
-
-/**
- * Finds a user by email.
- * @param {string} email
- * @returns The user or undefined if not found.
- */
-exports.findByEmail = function (email) {
-  return users.find(u => u.email === email);
-}
-
-/**
- * Finds a user by id.
- * @param {number} id
- * @returns The user or undefined if not found.
- */
-exports.findById = function (id) {
-  return users.find(u => u.id === id);
-}
-
-/**
- * Finds a user by username.
- * @param {string} username
- * @returns The user or undefined if not found.
- */
-exports.findByUsername = function (username) {
-  return users.find(u => u.username === username);
-}
-
-/**
- * Hash a password.
- * @param {string} password
- * @returns The hashed password.
- */
-exports.hashPassword = function (password) {
-  return shajs('sha256').update(password).digest('hex');
-}
+module.exports = new UserService();
