@@ -7,9 +7,6 @@ select, button {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  margin-left: 10px;
-  display: inline-block;
-  position: relative;
 
 }
 .options {
@@ -21,11 +18,8 @@ select::-ms-expand {
   display: none; /* supprimer la fléche par défaut en IE 10 et 11 */
 }
 
-button {
-  margin-left: 20px;
-}
-
 canvas {
-  margin-left: 400px;
-  margin-right: 400px;
+  margin-top: 1%;
+  margin-left: 20%;
+  margin-right: 20%;
 }

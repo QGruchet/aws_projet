@@ -58,8 +58,8 @@ function Canvas() {
 
   const onMouseDown = (e) => {
     setPosition({
-      x: e.pageX - 400,
-      y: e.pageY - 130
+      x: e.pageX - 390,
+      y: e.pageY - 140
     })
     setMouseDown(true)
   }
@@ -73,7 +73,7 @@ function Canvas() {
   }
 
   const onMouseMove = (e, isDrawing) => {
-    draw(e.pageX - 400, e.pageY - 130)
+    draw(e.pageX - 390, e.pageY - 140)
   }
 
   const clear = () => {
@@ -95,7 +95,7 @@ function Canvas() {
     <div className={"Canvas"}>
       <canvas
         style={{
-          border: "1px solid #000"
+          border: "1px solid #000",
         }}
         width={1100}
         height={700}
