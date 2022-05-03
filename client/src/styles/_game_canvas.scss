@@ -1,0 +1,31 @@
+select, button {
+  width: 140px;
+  height: 35px;
+  padding: 5px 35px 5px 5px;
+  font-size: 18px;
+  border: 2px solid #ccc;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin-left: 10px;
+  display: inline-block;
+  position: relative;
+
+}
+.options {
+  position: center;
+  padding-left: 28%;
+}
+
+select::-ms-expand {
+  display: none; /* supprimer la fléche par défaut en IE 10 et 11 */
+}
+
+button {
+  margin-left: 20px;
+}
+
+canvas {
+  margin-left: 400px;
+  margin-right: 400px;
+}
