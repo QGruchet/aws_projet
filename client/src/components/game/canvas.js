@@ -1,16 +1,17 @@
 import React, {useRef, useEffect, useState, useCallback} from 'react';
 
 const colors = [
-  "red",
-  "yellow",
-  "blue",
   "black",
-  "green",
+  "blue",
   "brown",
-  "purple",
+  "green",
   "grey",
   "orange",
-  "pink"
+  "pink",
+  "purple",
+  "red",
+  "white",
+  "yellow"
 ]
 
 const fontSizes = [
@@ -24,7 +25,7 @@ const lineJoins = [
 function Canvas() {
   const canvasRef = useRef(null);
   const ctx = useRef(null)
-  const [selectedColor, setSelectedColor] = useState(colors[3])
+  const [selectedColor, setSelectedColor] = useState(colors[0])
   const [selectedFontSize, setSelectedFontSize] = useState(fontSizes[4])
   const [selectedLineJoin, setSelectedLineJoin] = useState(lineJoins[0])
   const [mouseDown, setMouseDown] = useState(false)
@@ -78,6 +79,13 @@ function Canvas() {
 
   const clear = () => {
     ctx.current.clearRect(0, 0, ctx.current.canvas.width, ctx.current.canvas.height)
+  }
+
+  const fill = () => {
+    ctx.current.beginPath();
+    ctx.current.rect(0, 0, ctx.current.canvas.width, ctx.current.canvas.height);
+    ctx.current.fillStyle = selectedColor;
+    ctx.current.fill();
   }
 
   const download = async () => {
@@ -139,6 +147,7 @@ function Canvas() {
             )
           }
         </select>
+        <button onClick={fill}>Fill</button>
         <button onClick={clear}>Clear</button>
         <button onClick={download}>Download</button>
       </div>
