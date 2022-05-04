@@ -69,7 +69,7 @@ const SignupForm = () => {
                     <div id={"error"}>{formik.errors.password}</div>
                 ) : null}
 
-                <button type="submit">Submit</button>
+                <button id={"button"} type="submit">Submit</button>
                 <p className="message">New User ? &nbsp;
                     <NavLink to={"/Signup"}>
                         Sign up

@@ -48,6 +48,7 @@ const SigninForm = () => {
     return (
         <div>
             <Navigation/>
+            <p>Afin de profiter de l'ensemble des fonctionnalités du jeu, veuillez vous enregistrer ou créer un compte utilisateur.</p>
             <form onSubmit={formik.handleSubmit}>
             <label htmlFor="username"/>
                 <input
@@ -91,7 +92,7 @@ const SigninForm = () => {
                     <div id={"error"}>{formik.errors.password}</div>
                 ) : null}
 
-                <button type="submit">Submit</button>
+                <button id={"button"} type="submit">Submit</button>
                 <p className="message">Already have account ? &nbsp;
                     <NavLink to={"/Signin"}>
                         Sign in
