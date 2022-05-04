@@ -9,4 +9,4 @@ router.get('/me', checkAuth, userController.me);
 router.get('/profile', userController.profile);
 router.post('/sign-up', userController.signUp);
 
-module.exports = router
+module.exports = router;

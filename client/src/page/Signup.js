@@ -2,7 +2,7 @@ import Navigation from "../components/Navigation";
 import React from 'react';
 import { useFormik } from 'formik';
 import {NavLink} from "react-router-dom";
-import API from "../utils/api";
+import API from "../services/api";
 
 const validate = values => {
     const errors = {};

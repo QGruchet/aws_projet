@@ -5,7 +5,7 @@ const pgp = require('pg-promise')();
 // Application configuration
 const app = express();
 const server = require('http').createServer(app)
-const io = require('socket.io')(server)
+const port = process.env.PORT;
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -21,37 +21,25 @@ const db = pgp({
 });
 
 // Routes configuration
+app.use('/user', require('./routes/user.route'));
+
+// Gateways configuration
+const io = require('socket.io')(server, { cors: { origin:`http://localhost:${port}` } });
+require('./handlers/date.handler')(io.of('/date'));
+require('./handlers/game.handler')(io.of('/game'));
+require('./handlers/user.handler')(io.of('/user'));
+
+// TODO: Remove this route
 app.get('/', (_req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
-app.use('/user', require('./routes/user.route'));
-
-io.on('connection', (socket) => {
-  console.log(`User ${socket.id} connected`);
-  socket.on('disconnect', () => {
-    console.log(`User ${socket.id} disconnected`);
-  });
-  socket.on('chat message', (msg) => {
-    console.log('message received:', msg);
-    io.emit('chat message', msg);
-  });
-});
-
 // Start listening to requests
-const port = 3000;
 server.listen(port, () => {
   console.log(`Listening on port ${port}...`);
 });
 
 /*
-// USERS GATEWAY
-const userNamespace = io.of('/user');
-
-userNamespace.on('connection', (socket) => {
-  console.log('Client connected - /user: ' + socket.id);
-})
-
 // GAME GATEWAY
 const gameNamespace = io.of('/game');
 

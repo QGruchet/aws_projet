@@ -20,21 +20,22 @@
     <form id="form" action="">
       <input id="input" autocomplete="off" /><button>Send</button>
     </form>
-    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
     <script>
-      let socket = io();
+      let userSocket = io('/user');
+      let gameSocket = io('/game');
       let form = document.getElementById('form');
       let input = document.getElementById('input');
 
       form.addEventListener('submit', function(e) {
         e.preventDefault();
         if (input.value) {
-          socket.emit('chat message', input.value);
+          gameSocket.emit('chat message', input.value);
           input.value = '';
         }
       });
 
-      socket.on('chat message', function(msg) {
+      gameSocket.on('chat message', function(msg) {
         var item = document.createElement('li');
         item.textContent = msg;
         messages.appendChild(item);
