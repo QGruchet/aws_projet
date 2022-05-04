@@ -1,7 +1,5 @@
 select, button {
-  width: 140px;
-  height: 35px;
-  padding: 5px 35px 5px 5px;
+  padding: 1% 1% 1% 1%;
   font-size: 18px;
   border: 2px solid #ccc;
   -webkit-appearance: none;
@@ -21,10 +19,9 @@ select::-ms-expand {
 canvas {
   margin-top: 1%;
   margin-left: 20%;
-  margin-right: 20%;
 }
 
 .Canvas {
-  height: auto;
-  width: 110%;
+  height: 70%;
+  width: 100%;
 }
