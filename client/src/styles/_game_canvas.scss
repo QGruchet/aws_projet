@@ -5,11 +5,11 @@ select, button {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-
+  position: center;
 }
 .options {
   position: center;
-  padding-left: 28%;
+  padding-left: 38%;
 }
 
 select::-ms-expand {
