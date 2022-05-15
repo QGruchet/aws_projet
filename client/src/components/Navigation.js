@@ -1,30 +1,49 @@
-import React from 'react';
-import { NavLink } from "react-router-dom";
-import Logo from "./Logo";
+import {
+  Button,
+  Container,
+  Form,
+  FormControl,
+  Nav,
+  Navbar
+} from 'react-bootstrap';
+import { BsSearch } from 'react-icons/bs';
 
-
-const Navigation = () => {
+export default function Navigation() {
   return (
-    <div className={"navigation"}>
-      <ul>
-        <NavLink exact to={"/"} className={(nav) => (nav.isActive ? "nav-active" : "")}>
-          <li>Home</li>
-        </NavLink>
-        <NavLink to={"/HowPlay"} className={(nav) => (nav.isActive ? "nav-active" : "")}>
-          <li>Tutorial</li>
-        </NavLink>
-        <NavLink to={"/About"} className={(nav) => (nav.isActive ? "nav-active" : "")}>
-          <li>About</li>
-        </NavLink>
-        <NavLink id={"right"} to={"/RoomSelect"} className={(nav) => (nav.isActive ? "nav-active" : "")}>
-          <li>Play</li>
-        </NavLink>
-        <NavLink to={"/Signup"} className={(nav) => (nav.isActive ? "nav-active" : "")}>
-          <li>Sign up</li>
-        </NavLink>
-      </ul>
-    </div>
-  );
-};
-
-export default Navigation;
+    <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark'>
+      <Container fluid>
+        <Navbar.Brand href='/'>
+          <img
+            alt=''
+            src='/pencil.png'
+            width='30'
+            height='30'
+            className='d-inline-block align-top'
+            />{' '}
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls='responsive-navbar-nav' />
+        <Navbar.Collapse id='responsive-navbar-nav'>
+          <Nav className='me-auto'>
+            <Nav.Link href='/tutorial'>Tutoriel</Nav.Link>
+            <Nav.Link href='/room-select'>Jouer</Nav.Link>
+            <Nav.Link href='/about'>A propos</Nav.Link>
+            { /* Search bar
+              <Form className='d-flex'>
+                <FormControl
+                  type='search'
+                  className='me-1'
+                  aria-label='Search'
+                />
+                <Button><BsSearch /></Button>
+              </Form>
+            */ }
+          </Nav>
+          <Nav className='justify-content-end'>
+            <Nav.Link href='/login'>Se connecter</Nav.Link>
+            <Button variant='outline-primary' href='/signup'>S'inscrire</Button>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  )
+}

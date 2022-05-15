@@ -33,6 +33,7 @@ function profile(req, res) {
 }
 
 function signUp(req, res) {
+  console.log('sign-up', req.body);
   const { username, email, password } = req.body;
   if (!username)
     return res.status(httpStatus.StatusCodes.BAD_REQUEST).send('No username provided');

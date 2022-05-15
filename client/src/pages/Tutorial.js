@@ -1,7 +1,7 @@
 import React from 'react';
 import Navigation from "../components/Navigation";
 
-const HowPlay = () => {
+export default function Tutorial() {
   return (
     <div>
       <Navigation />
@@ -9,5 +9,3 @@ const HowPlay = () => {
     </div>
   );
 };
-
-export default HowPlay;

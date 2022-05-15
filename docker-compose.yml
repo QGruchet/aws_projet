@@ -33,7 +33,6 @@ services:
     depends_on:
       - api
     environment:
-      - API_PORT=3000
       - PORT=80
     ports:
       - 80:80
