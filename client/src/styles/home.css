@@ -1,0 +1,8 @@
+@import 'config.css';
+
+#logo.home {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 35%;
+}

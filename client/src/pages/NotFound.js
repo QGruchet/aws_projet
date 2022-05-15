@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Notfound = () => {
+export default function Notfound() {
   return (
     <div id="notfound">
       <div className={"notfound"}>
@@ -14,5 +14,3 @@ const Notfound = () => {
     </div>
   );
 };
-
-export default Notfound;

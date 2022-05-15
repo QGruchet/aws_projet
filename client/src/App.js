@@ -1,30 +1,29 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import About from './pages/About';
+import Game from './pages/Game';
+import Home from './pages/Home';
+import Notfound from './pages/NotFound';
 import React from 'react';
-import './App.css';
-import Home from "./page/Home";
-import { BrowserRouter, Routes, Route } from "react-router-dom"
-import Notfound from "./page/Notfound";
-import About from "./page/About";
-import HowPlay from "./page/HowPlay";
-import Game from "./page/Game";
-import SignupForm from "./page/Signup";
-import SigninForm from "./page/Signin";
-import RoomSelect from "./page/RoomSelect";
+import RoomSelect from './pages/RoomSelect';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Tutorial from './pages/Tutorial';
 
 const App = () => {
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" exact element={<Home />} />
-                <Route path="/About" exact element={<About />} />
-                <Route path="/HowPlay" exact element={<HowPlay />} />
-                <Route path="/RoomSelect" exact element={<RoomSelect />} />
-                <Route path="/Play" exact element={<Game />} />
-                <Route path="/Signup" exact element={<SignupForm />} />
-                <Route path="/Signin" exact element={<SigninForm />} />
-                <Route path="*" element={<Notfound />} />
-            </Routes>
-        </BrowserRouter>
-    )
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path='*' element={<Notfound />} />
+        <Route path='/about' element={<About />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/play' element={<Game />} />
+        <Route path='/room-select' element={<RoomSelect />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/tutorial' element={<Tutorial />} />
+        <Route path='/' element={<Home />} />
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
 export default App;
