@@ -42,6 +42,7 @@ function Signup() {
       AuthService.login(res.data);
       navigate('/');
     }).catch((err) => {
+      console.log(err);
       const res = err.response;
       if (res.status === StatusCodes.CONFLICT)
       {

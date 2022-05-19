@@ -2,6 +2,7 @@ const Lobby = require('./game/lobby.class');
 const LobbyManager = require('./game/lobby-manager.class');
 const Player = require('./game/player.class');
 const User = require('../models/user.model');
+const Random = require("../utils/random.utils");
 
 class GameService {
   #lobbyManager;
@@ -41,7 +42,7 @@ class GameService {
    */
    createLobby(owner) {
     // Las Vegas algorithm
-    const lobbyId = undefined;
+    let lobbyId = undefined;
     do
       lobbyId = Random.generateHexString(16);
     while (this.lobbies.has(lobbyId));
