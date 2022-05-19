@@ -1,14 +1,42 @@
 import {
   Button,
   Container,
-  Form,
-  FormControl,
   Nav,
   Navbar
 } from 'react-bootstrap';
-import { BsSearch } from 'react-icons/bs';
+import AuthService from '../services/auth.service';
+import { useNavigate } from 'react-router-dom';
 
 export default function Navigation() {
+  let navigate = useNavigate();
+
+  const logout = () => {
+    AuthService.logout();
+    navigate('/');
+  }
+
+  const renderAuthBouton = () => {
+    if (AuthService.isAuthenticated())
+      return (
+        <Nav className='justify-content-end'>
+          <Button onClick={logout} variant="outline-primary">
+            Déconnexion
+          </Button>
+        </Nav>
+      );
+    return (
+      <Nav className='justify-content-end'>
+        <Nav.Link href='/login'>Se connecter</Nav.Link>
+        <Button variant='outline-primary' href='/signup'>S'inscrire</Button>
+      </Nav>
+    );
+  }
+
+  const renderMenu = () => {
+    if (AuthService.isAuthenticated())
+      return (<Nav.Link href='/room-select'>Jouer</Nav.Link>);
+  }
+
   return (
     <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark'>
       <Container fluid>
@@ -25,23 +53,10 @@ export default function Navigation() {
         <Navbar.Collapse id='responsive-navbar-nav'>
           <Nav className='me-auto'>
             <Nav.Link href='/tutorial'>Tutoriel</Nav.Link>
-            <Nav.Link href='/room-select'>Jouer</Nav.Link>
+            {renderMenu()}
             <Nav.Link href='/about'>A propos</Nav.Link>
-            { /* Search bar
-              <Form className='d-flex'>
-                <FormControl
-                  type='search'
-                  className='me-1'
-                  aria-label='Search'
-                />
-                <Button><BsSearch /></Button>
-              </Form>
-            */ }
           </Nav>
-          <Nav className='justify-content-end'>
-            <Nav.Link href='/login'>Se connecter</Nav.Link>
-            <Button variant='outline-primary' href='/signup'>S'inscrire</Button>
-          </Nav>
+          {renderAuthBouton()}
         </Navbar.Collapse>
       </Container>
     </Navbar>
