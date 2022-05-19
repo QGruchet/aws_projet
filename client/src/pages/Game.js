@@ -4,13 +4,14 @@ import Canvas from "../components/game/canvas";
 import Tchat from "../components/game/tchat";
 import ListPlayers from "../components/game/listPlayers";
 import Chatbox from "../components/game/tchat";
+import Chat from "../components/game/tchat";
 
 const Game = () => {
   return (
-      <div className="container">
+      <div >
         <Navigation/>
         <Canvas/>
-        <ListPlayers/>
+        <Chat/>
       </div>
   )
 };
