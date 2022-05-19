@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import React from 'react';
 import About from './pages/About';
 import Game from './pages/Game';
 import Home from './pages/Home';
 import Notfound from './pages/NotFound';
-import React from 'react';
 import RoomSelect from './pages/RoomSelect';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
