@@ -61,7 +61,6 @@ function Signup() {
       <Navigation />
       <Form className='auth-form-container' noValidate validated={validated} onSubmit={handleSubmit}>
         <h1>Création de compte</h1>
-        { error.length > 0 && <Alert variant='danger' onClose={() => dismissError()} dismissible>{error}</Alert> }
         <Form.Group className='auth-form-group' controlId='validation-login'>
           <Form.Control required type='text'
             placeholder="Nom d'utilisateur"
@@ -90,7 +89,7 @@ function Signup() {
             Le mot de passe doit contenir au moins 8 caractères dont une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.
           </Form.Control.Feedback>
         </Form.Group>
-        <br></br>
+        <br/>
         <Button type='submit'>S'inscrire</Button>
       </Form>
     </div>

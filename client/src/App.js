@@ -8,6 +8,7 @@ import RoomSelect from './pages/RoomSelect';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Tutorial from './pages/Tutorial';
+import CreateGame from "./pages/CreateGame";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Route path='/about' element={<About />} />
         <Route path='/login' element={<Login />} />
         <Route path='/play' element={<Game />} />
+        <Route path='/create-room' element={<CreateGame/>} />
         <Route path='/room-select' element={<RoomSelect />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/tutorial' element={<Tutorial />} />
