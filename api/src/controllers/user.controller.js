@@ -18,10 +18,6 @@ function login(req, res) {
   res.json({ user, accessToken });
 }
 
-function me(req, res) {
-  res.send(req.user);
-}
-
 function profile(req, res) {
   const { id } = req.query;
   if (!id)
@@ -58,7 +54,6 @@ function signUp(req, res) {
 module.exports = {
   list,
   login,
-  me,
   profile,
   signUp
 };

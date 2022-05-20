@@ -16,7 +16,7 @@ class User {
    * @returns The new access token.
    */
    generateAccessToken() {
-    return jwt.sign({ ...this }, process.env.JWT_ACCESS_TOKEN_SECRET,
+    return jwt.sign({ id: this.id }, process.env.JWT_ACCESS_TOKEN_SECRET,
       { expiresIn: process.env.JWT_ACCESS_TOKEN_EXPIRES_IN });
   }
 }
