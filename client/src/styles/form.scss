@@ -1,4 +1,4 @@
-.auth-form-container {
+.auth-form-container .create-room-form-container{
   background-color: #bdc5cf;
   border-radius: 50px;
   max-width: 30%;
@@ -7,11 +7,39 @@
   text-align: center;
 }
 
-.auth-form-group {
+.auth-form-group{
   margin: 5%;
   text-align: center;
 }
 
 .form-control {
   text-align: center;
+}
+
+.create-room-form-container{
+  background-color: #bdc5cf;
+  border-radius: 50px;
+  max-width: 30%;
+  margin: 5% auto;
+  padding: 5% 20px 5% 20px;
+  text-align: center;
+}
+
+.create-room-form-group{
+  margin: 5%;
+  text-align: center;
+}
+
+#create-room{
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 15%;
+}
+
+.check-private-game{
+  margin-top: 30%;
+}
+
+.begin-game-button {
+  margin-top: 25%;
 }

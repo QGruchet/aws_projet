@@ -34,26 +34,7 @@ function Signup() {
   }
 
   const trySignUp = () => {
-    ApiConnection.post('user/sign-up', {
-      username: form.username,
-      email: form.email,
-      password: form.password
-    }).then((res) => {
-      AuthService.login(res.data);
-      navigate('/');
-    }).catch((err) => {
-      console.log(err);
-      const res = err.response;
-      if (res.status === StatusCodes.CONFLICT)
-      {
-        if (res.data.name === 'username')
-          setError('Le nom d\'utilisateur est déjà utilisé');
-        else if (res.data.name === 'email')
-          setError('L\'adresse email est déjà utilisée');
-      }
-      else
-        setError('Une erreur est survenue lors de l\'inscription');
-    });
+
   }
 
   return (
@@ -61,7 +42,6 @@ function Signup() {
       <Navigation />
       <Form className='auth-form-container' noValidate validated={validated} onSubmit={handleSubmit}>
         <h1>Création de compte</h1>
-        { error.length > 0 && <Alert variant='danger' onClose={() => dismissError()} dismissible>{error}</Alert> }
         <Form.Group className='auth-form-group' controlId='validation-login'>
           <Form.Control required type='text'
             placeholder="Nom d'utilisateur"
@@ -90,7 +70,7 @@ function Signup() {
             Le mot de passe doit contenir au moins 8 caractères dont une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.
           </Form.Control.Feedback>
         </Form.Group>
-        <br></br>
+        <br/>
         <Button type='submit'>S'inscrire</Button>
       </Form>
     </div>

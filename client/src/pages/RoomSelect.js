@@ -17,7 +17,7 @@ const RoomSelect = () => {
 
       <button id={"btn1"}>
       <NavLink to={{
-          pathname: "/Play",
+          pathname: "/create-room",
           state: { mode: "create" }
         }}>
             Créer une partie
