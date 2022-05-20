@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Navigation from '../components/Navigation';
 import ApiConnection from '../utils/api-connection';
 import AuthService from '../services/auth.service';
-import '../styles/form.scss';
+import '../styles/auth-form.scss';
 
 function Login() {
   const [validated, setValidated] = useState(false);
@@ -50,13 +50,13 @@ function Login() {
         <h1>Connexion</h1>
         { error.length > 0 && <Alert variant='danger' onClose={() => dismissError()} dismissible>{error}</Alert> }
         <Form.Group className='auth-form-group' controlId='validation-login'>
-          <Form.Control required type='text'
-            placeholder="Addresse email ou nom d'utilisateur"
+          <Form.Control className='auth-form-control' required type='text'
+            placeholder="Adresse email ou nom d'utilisateur"
             onChange={(e) => setFormField('login', e.target.value)}
           />
         </Form.Group>
         <Form.Group className='auth-form-group' controlId='validation-password'>
-          <Form.Control required type='password'
+          <Form.Control className='auth-form-control' required type='password'
             placeholder='Mot de passe'
             onChange={(e) => setFormField('password', e.target.value)}
           />

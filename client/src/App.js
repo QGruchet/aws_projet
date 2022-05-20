@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Tutorial from './pages/Tutorial';
 import CreateGame from "./pages/CreateGame";
+import Chat from './components/game/Chat';
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
         <Route path='/room-select' element={<RoomSelect />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/tutorial' element={<Tutorial />} />
+        <Route path='/chat' element={<Chat />} />
         <Route path='/' element={<Home />} />
       </Routes>
     </BrowserRouter>

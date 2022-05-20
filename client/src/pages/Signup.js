@@ -6,7 +6,7 @@ import { UsernamePattern, PasswordPattern } from '../utils/regex-pattern';
 import StatusCodes from 'http-status-codes';
 import ApiConnection from '../utils/api-connection';
 import AuthService from '../services/auth.service';
-import '../styles/form.scss';
+import '../styles/auth-form.scss';
 
 function Signup() {
   const [validated, setValidated] = useState(false);
@@ -62,7 +62,7 @@ function Signup() {
       <Form className='auth-form-container' noValidate validated={validated} onSubmit={handleSubmit}>
         <h1>Création de compte</h1>
         <Form.Group className='auth-form-group' controlId='validation-login'>
-          <Form.Control required type='text'
+          <Form.Control className='auth-form-control' required type='text'
             placeholder="Nom d'utilisateur"
             pattern={UsernamePattern}
             onChange={(e) => setFormField('username', e.target.value)}
@@ -72,7 +72,7 @@ function Signup() {
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className='auth-form-group' controlId='validation-email'>
-          <Form.Control required type='email' placeholder='Adresse email'
+          <Form.Control className='auth-form-control' required type='email' placeholder='Adresse email'
             onChange={(e) => setFormField('email', e.target.value)}
           />
           <Form.Control.Feedback type='invalid'>
@@ -80,7 +80,7 @@ function Signup() {
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group className='auth-form-group' controlId='validation-password'>
-          <Form.Control required type='password'
+          <Form.Control className='auth-form-control' required type='password'
             placeholder='Mot de passe'
             pattern={PasswordPattern}
             onChange={(e) => setFormField('password', e.target.value)}
