@@ -1,8 +1,11 @@
 import {
   Button,
   Container,
+  Form,
+  FormControl,
   Nav,
-  Navbar
+  Navbar,
+  NavDropdown
 } from 'react-bootstrap';
 import AuthService from '../services/auth.service';
 import { useNavigate } from 'react-router-dom';
@@ -19,15 +22,27 @@ export default function Navigation() {
     if (AuthService.isAuthenticated())
       return (
         <Nav className='justify-content-end'>
-          <Button onClick={logout} variant="outline-primary">
-            Déconnexion
-          </Button>
+          <Form>
+            <FormControl
+              type='search'
+              className='me-1'
+              aria-label='Search'
+              placeholder='Rechercher'
+              size='sm'
+            />
+          </Form>
+          <NavDropdown title={AuthService.getCurrentUser().user.username} align={{ lg: 'end' }}>
+            <NavDropdown.Item href='/profile'>Mon profil</NavDropdown.Item>
+            <NavDropdown.Item href='/settings'>Paramètres</NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item onClick={logout} className='text-danger'>Déconnexion</NavDropdown.Item>
+          </NavDropdown>
         </Nav>
       );
     return (
       <Nav className='justify-content-end'>
         <Nav.Link href='/login'>Se connecter</Nav.Link>
-        <Button variant='outline-primary' href='/signup'>S'inscrire</Button>
+        <Button variant='primary' href='/signup'>S'inscrire</Button>
       </Nav>
     );
   }
@@ -52,9 +67,9 @@ export default function Navigation() {
         <Navbar.Toggle aria-controls='responsive-navbar-nav' />
         <Navbar.Collapse id='responsive-navbar-nav'>
           <Nav className='me-auto'>
+            <Nav.Link href='/about'>A propos</Nav.Link>
             <Nav.Link href='/tutorial'>Tutoriel</Nav.Link>
             {renderMenu()}
-            <Nav.Link href='/about'>A propos</Nav.Link>
           </Nav>
           {renderAuthBouton()}
         </Navbar.Collapse>
