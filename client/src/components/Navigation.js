@@ -35,7 +35,7 @@ export default function Navigation() {
             <NavDropdown.Item href='/profile'>Mon profil</NavDropdown.Item>
             <NavDropdown.Item href='/settings'>Paramètres</NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item onClick={logout}>Déconnexion</NavDropdown.Item>
+            <NavDropdown.Item onClick={logout} className='text-danger'>Déconnexion</NavDropdown.Item>
           </NavDropdown>
         </Nav>
       );
