@@ -34,7 +34,26 @@ function Signup() {
   }
 
   const trySignUp = () => {
-
+    ApiConnection.post('user/sign-up', {
+      username: form.username,
+      email: form.email,
+      password: form.password
+    }).then((res) => {
+      AuthService.login(res.data);
+      navigate('/');
+    }).catch((err) => {
+      console.log(err);
+      const res = err.response;
+      if (res.status === StatusCodes.CONFLICT)
+      {
+        if (res.data.name === 'username')
+          setError('Le nom d\'utilisateur est déjà utilisé');
+        else if (res.data.name === 'email')
+          setError('L\'adresse email est déjà utilisée');
+      }
+      else
+        setError('Une erreur est survenue lors de l\'inscription');
+    });
   }
 
   return (
