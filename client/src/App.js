@@ -9,7 +9,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Tutorial from './pages/Tutorial';
 import CreateGame from './pages/CreateGame';
-import PrivateRoute from './components/PrivateRoute';
+import { PrivateRoute, PublicRoute } from './utils/RouteGuards'
 
 const App = () => {
   return (
@@ -17,8 +17,8 @@ const App = () => {
       <Routes>
         <Route path='*' element={<Notfound />} />
         <Route path='/about' element={<About />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/signup' element={<Signup />} />
+        <Route path='/login' element={<PublicRoute><RoomSelect /></PublicRoute>} />
+        <Route path='/signup' element={<PublicRoute><RoomSelect /></PublicRoute>} />
         <Route path='/tutorial' element={<Tutorial />} />
         <Route path='/room-select' element={<PrivateRoute><RoomSelect /></PrivateRoute>} />
         <Route path='/play' element={<PrivateRoute><Play /></PrivateRoute>} />
