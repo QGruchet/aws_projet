@@ -35,11 +35,6 @@ function initRoutes(app) {
       app.use(`/${routeName}`, require(`./${routesDirectory}/${file}`));
     }
   });
-
-  // TODO: Remove this route
-  app.get('/', (_req, res) => {
-    res.sendFile(__dirname + '/index.html');
-  });
 }
 
 // Application configuration
