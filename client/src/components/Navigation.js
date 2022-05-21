@@ -25,7 +25,7 @@ export default function Navigation() {
           <Form>
             <FormControl
               type='search'
-              className='me-1'
+              className='mt-1'
               aria-label='Search'
               placeholder='Rechercher'
               size='sm'

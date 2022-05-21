@@ -8,7 +8,6 @@ function Chat() {
   const maxMessages = 500;
   const messagesEndRef = useRef();
   const author = AuthService.getCurrentUser().user.username;
-  let isScrolling = false;
   //let chatSocket = io('/chat');
   const [validated, setValidated] = useState(false);
   const [messages, setMessages] = useState([
