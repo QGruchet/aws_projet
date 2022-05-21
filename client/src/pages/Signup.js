@@ -61,6 +61,7 @@ function Signup() {
       <Navigation />
       <Form className='auth-form-container' noValidate validated={validated} onSubmit={handleSubmit}>
         <h1>Création de compte</h1>
+        { error.length > 0 && <Alert variant='danger' onClose={() => dismissError()} dismissible>{error}</Alert> }
         <Form.Group className='auth-form-group' controlId='validation-login'>
           <Form.Control className='auth-form-control' required type='text'
             placeholder="Nom d'utilisateur"
