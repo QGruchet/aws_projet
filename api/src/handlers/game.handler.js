@@ -38,8 +38,19 @@ module.exports = (io) => {
       socket.to(lobby.id).emit('join', lobby.find(userId));
     });
 
-    socket.on('start', (userId) => {
-      console.log(`[/game] - ${userId}: start`);
+    socket.on('start', (data) => {
+      console.log(`[/game] - ${data.userId}: start`);
+    });
+
+    socket.on('message', (data) => {
+      console.log(`[/game] - message`);
+      console.log(`[/game] - ${data.userId}: ${data.content}`);
+      socket.emit('message', data.content);
+    });
+
+    socket.on('ping', () => {
+      console.log(`[/game] - ping`);
+      socket.emit('pong');
     });
   });
 };

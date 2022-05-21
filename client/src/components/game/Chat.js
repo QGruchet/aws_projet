@@ -3,10 +3,10 @@ import { Button, Container, Form, Col, ListGroup, Row, Card } from 'react-bootst
 import AuthService from '../../services/auth.service';
 import '../../styles/chat.scss';
 
-function Chat() {
-  const maxMessages = 500;
+function Chat({ socket }) {
+  const maxMessages = 100;
   const messagesEndRef = useRef();
-  const author = AuthService.getCurrentUser().user.username;
+  const user = AuthService.getCurrentUser().user;
   const [validated, setValidated] = useState(false);
   const [messages, setMessages] = useState([
     { type: 'message', author: 'Alice', content: 'Bonjour !'},
@@ -15,12 +15,28 @@ function Chat() {
   ]);
   const [messageBuffer, setMessageBuffer] = useState('');
 
+  useEffect(() => {
+    const messageListener = (data) => {
+      addMessage(data.author, data.content);
+    };
+
+    socket.on('message', messageListener);
+
+    return () => {
+      socket.off('message', messageListener);
+    };
+  }, [socket]);
+
   const addInfo = (content) => {
     setMessages([...messages, { type: 'info', content }]);
+    if (messages.length > maxMessages)
+      setMessages(messages.slice(messages.length - maxMessages));
   }
 
   const addMessage = (author, content) => {
     setMessages([...messages, { type: 'message', author, content }]);
+    if (messages.length > maxMessages)
+      setMessages(messages.slice(messages.length - maxMessages));
   }
 
   const handleSubmit = (event) => {
@@ -70,10 +86,9 @@ function Chat() {
   }
 
   const submit = () => {
-    addMessage(author, messageBuffer);
+    socket.emit('message', { userId: user.id, content: messageBuffer });
+    addMessage(user.username, messageBuffer);
     setMessageBuffer('');
-    if (messages.length > maxMessages)
-      setMessages(messages.slice(messages.length - maxMessages));
   }
 
   useEffect(() => {
