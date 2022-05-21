@@ -1,28 +1,32 @@
-const sequelize = require('sequelize');
+const { DataTypes, Model } = require('sequelize');
 const db = require('../utils/db');
 const User = require('../models/user.model');
 const Room = require('../models/room.model');
 
-const Player = db.define('player', {
+
+class Player extends Model { otherPublicField }
+
+Player.init({
   room_id: {
-    type: sequelize.INTEGER,
+    type: DataTypes.INTEGER,
     primaryKey: true
   },
   user_id: {
-    type: sequelize.INTEGER,
+    type: DataTypes.INTEGER,
     primaryKey: true
   },
   number: {
-    type: sequelize.INTEGER,
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   score: {
-    type: sequelize.INTEGER,
+    type: DataTypes.INTEGER,
     allowNull: false,
     default: 0
   }
 }, {
-  tableName: 'Player',
+  sequelize: db,
+  modelName: 'Player',
   timestamps: false
 });
 
