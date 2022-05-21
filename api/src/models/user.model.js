@@ -1,24 +1,48 @@
-const crypto = require('../utils/crypto.util')
-const jwt = require('jsonwebtoken');
+const { DataTypes, Model } = require('sequelize');
+const db = require('../utils/db');
 
-class User {
-  static #nextUserId = 1;
+class User extends Model { otherPublicField }
 
-  constructor(username, email, password) {
-    this.id = User.#nextUserId++;
-    this.username = username;
-    this.email = email;
-    this.password = crypto.sha256(password);
-  }
-
-  /**
-   * Generates a new access token for the user.
-   * @returns The new access token.
-   */
-   generateAccessToken() {
-    return jwt.sign({ ...this }, process.env.JWT_ACCESS_TOKEN_SECRET,
-      { expiresIn: process.env.JWT_ACCESS_TOKEN_EXPIRES_IN });
-  }
-}
+User.init({
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    username: {
+        type: DataTypes.STRING(30),
+        allowNull: false,
+        unique: true
+    },
+    email: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+        validate: {
+            isEmail: true
+        },
+        unique: true
+    },
+    password: {
+        type: DataTypes.STRING(100),
+        allowNull: false,
+        /*validate: {
+          is: /^[0-9a-f]{64}$/i
+        }*/
+    },
+    wins: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+    },
+    losses: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0
+    }
+}, {
+    sequelize: db,
+    modelName: 'User',
+    timestamps: false
+});
 
 module.exports = User;
