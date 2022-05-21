@@ -14,7 +14,7 @@ function login(req, res) {
   const user = userService.authenticate(login, password);
   if (!user)
     return res.status(httpStatus.StatusCodes.UNAUTHORIZED).send('Invalid email or password');
-  const accessToken = user.generateAccessToken();
+  const accessToken = userService.generateAccessToken();
   res.json({ user, accessToken });
 }
 
@@ -32,7 +32,7 @@ function profile(req, res) {
   res.send(user);
 }
 
-function signUp(req, res) {
+async function signUp(req, res) {
   const { username, email, password } = req.body;
   if (!username)
     return res.status(httpStatus.StatusCodes.BAD_REQUEST).send('No username provided');
@@ -40,18 +40,18 @@ function signUp(req, res) {
     return res.status(httpStatus.StatusCodes.BAD_REQUEST).send('No email provided');
   if (!password)
     return res.status(httpStatus.StatusCodes.BAD_REQUEST).send('No password provided');
-  let user = userService.findByUsername(username);
+  let user = await userService.findByUsername(username);
   if (user)
     return res.status(httpStatus.StatusCodes.CONFLICT)
       .send({ name: 'username', message: 'Username already exists' });
-  user = userService.findByEmail(email);
+  user = await userService.findByEmail(email);
   if (user)
     return res.status(httpStatus.StatusCodes.CONFLICT)
-    .send({ name: 'email', message: 'Email already exists' });
+      .send({ name: 'email', message: 'Email already exists' });
   user = userService.create(username, email, password);
   if (!user)
     return res.status(httpStatus.StatusCodes.BAD_REQUEST).send('Error creating user');
-  const accessToken = user.generateAccessToken();
+  const accessToken = userService.generateAccessToken();
   res.send({ user, accessToken });
 }
 

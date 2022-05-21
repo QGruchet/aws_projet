@@ -1,10 +1,9 @@
 const User = require('../models/user.model');
-const crypto = require('../utils/crypto.util')
+const crypto = require('../utils/crypto.util');
+const jwt = require('jsonwebtoken');
 
 class UserService {
-  constructor() {
-    this.users = [];
-  }
+  constructor() { }
 
   /**
    * Try to authenticate a user.
@@ -14,8 +13,25 @@ class UserService {
    */
   authenticate(login, password) {
     const hashedPassword = crypto.sha256(password);
-    return this.users.find(u => (u.email === login || u.username === login)
-      && u.password === hashedPassword)
+    return User.findOne({
+      where: {
+        $or: [
+          {
+            username:
+            {
+              $eq: login
+            }
+          },
+          {
+            email:
+            {
+              $eq: login
+            }
+          }
+        ],
+        password: hashedPassword
+      }
+    });
   }
 
   /**
@@ -25,26 +41,21 @@ class UserService {
    * @param {string} password
    */
   create(username, email, password) {
-    const user = new User(username, email, password);
-    this.users.push(user);
-    return user;
+    const hashedPassword = crypto.sha256(password);
+    const user = {
+      username: username,
+      email: email,
+      password: hashedPassword,
+    }
+    return User.create(user)
   }
 
   /**
-   * Finds all users.
-   * @returns The list of users.
-   */
+  * Finds all users.
+  * @returns The list of users.
+  */
   findAll() {
-    return this.users;
-  }
-
-  /**
-   * Finds a user by email.
-   * @param {string} email
-   * @returns The user or undefined if not found.
-   */
-  findByEmail(email) {
-    return this.users.find(u => u.email === email);
+    return User.findAll();
   }
 
   /**
@@ -53,7 +64,7 @@ class UserService {
    * @returns The user or undefined if not found.
    */
   findById(id) {
-    return this.users.find(u => u.id === id);
+    return findByPk(id);
   }
 
   /**
@@ -62,7 +73,25 @@ class UserService {
    * @returns The user or undefined if not found.
    */
   findByUsername(username) {
-    return this.users.find(u => u.username === username);
+    return User.findOne({ where: { username: username } })
+  }
+
+  /**
+   * Finds a user by email.
+   * @param {string} email
+   * @returns The user or undefined if not found.
+   */
+  findByEmail(email) {
+    return User.findOne({ where: { email: email } })
+  }
+
+  /**
+   * Generates a new access token for the user.
+   * @returns The new access token.
+   */
+  generateAccessToken() {
+    return jwt.sign({ ...this }, process.env.JWT_ACCESS_TOKEN_SECRET,
+      { expiresIn: process.env.JWT_ACCESS_TOKEN_EXPIRES_IN });
   }
 }
 
