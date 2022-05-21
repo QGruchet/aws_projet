@@ -2,6 +2,10 @@ const express = require('express');
 const cors = require('cors'); // Cross-Origin Resource Sharing
 const pgp = require('pg-promise')();
 const fs = require('fs');
+const User = require('./models/user.model')
+const Room = require('./models/room.model')
+const Word = require('./models/word.model')
+const Player = require('./models/player.model')
 
 /**
  * Initilizes socket-io handlers.
@@ -46,9 +50,9 @@ function initRoutes(app) {
 const app = express();
 const port = process.env.PORT;
 const server = require('http').createServer(app)
-const io = require('socket.io')(server, { cors: { origin:`http://localhost:${port}` } });
+const io = require('socket.io')(server, { cors: { origin: `http://localhost:${port}` } });
 
-app.use(cors({credentials: true, origin: 'http://localhost'}));
+app.use(cors({ credentials: true, origin: 'http://localhost' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 initRoutes(app);
@@ -63,6 +67,14 @@ const db = pgp({
   password: process.env.POSTGRES_PASSWORD,
   max: 32 // max size of the connection pool
 });
+
+async function createTables() {
+  await User.sync();
+  await Room.sync();
+  await Word.sync();
+  await Player.sync();
+}
+createTables()
 
 // Start listening to requests
 server.listen(port, () => {

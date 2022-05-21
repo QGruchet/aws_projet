@@ -44,8 +44,6 @@ Room.belongsTo(User, {
         name: 'host_id',
         allowNull: false
     }
-});
-
-Room.sync()
+});//
 
 module.exports = Room;

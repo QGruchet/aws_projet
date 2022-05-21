@@ -41,16 +41,19 @@ async function signUp(req, res) {
   if (!password)
     return res.status(httpStatus.StatusCodes.BAD_REQUEST).send('No password provided');
   let user = await userService.findByUsername(username);
-  if (user)
+  if (user) {
     return res.status(httpStatus.StatusCodes.CONFLICT)
       .send({ name: 'username', message: 'Username already exists' });
+  }
   user = await userService.findByEmail(email);
-  if (user)
+  if (user) {
     return res.status(httpStatus.StatusCodes.CONFLICT)
       .send({ name: 'email', message: 'Email already exists' });
+  }
   user = userService.create(username, email, password);
-  if (!user)
+  if (!user) {
     return res.status(httpStatus.StatusCodes.BAD_REQUEST).send('Error creating user');
+  }
   const accessToken = userService.generateAccessToken();
   res.send({ user, accessToken });
 }

@@ -24,6 +24,4 @@ Word.init({
     timestamps: false
 });
 
-Word.sync()
-
 module.exports = Word;

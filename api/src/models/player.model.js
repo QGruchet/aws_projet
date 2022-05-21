@@ -1,7 +1,7 @@
 const sequelize = require('sequelize');
 const db = require('../utils/db');
-const User = require('../models/user');
-const Room = require('../models/room');
+const User = require('../models/user.model');
+const Room = require('../models/room.model');
 
 const Player = db.define('player', {
   room_id: {
@@ -28,7 +28,5 @@ const Player = db.define('player', {
 
 User.belongsToMany(Room, { through: Player, unique: false, foreignKey: 'user_id' });
 Room.belongsToMany(User, { through: Player, unique: false, foreignKey: 'room_id' });
-
-Player.sync()
 
 module.exports = Player;
