@@ -1,6 +1,7 @@
 const User = require('../models/user.model');
 const crypto = require('../utils/crypto.util');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
 class UserService {
   constructor() { }
@@ -12,8 +13,7 @@ class UserService {
    * @returns The user or undefined if not found.
    */
   authenticate(login, password) {
-    const hashedPassword = crypto.sha256(password);
-    return User.findOne({
+    const user = User.findOne({
       where: {
         $or: [
           {
@@ -28,10 +28,15 @@ class UserService {
               $eq: login
             }
           }
-        ],
-        password: hashedPassword
+        ]
       }
     });
+    if (user == undefined) return undefined;
+    let compare = bcrypt.compareSync(password, user.password);
+    if (compare){
+      return user; 
+    }
+    return undefined;
   }
 
   /**
@@ -41,7 +46,7 @@ class UserService {
    * @param {string} password
    */
   create(username, email, password) {
-    const hashedPassword = crypto.sha256(password);
+    const hashedPassword = crypto.bcrypt_func(password);
     const user = {
       username: username,
       email: email,
