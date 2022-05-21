@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { Button, Container, Form, Col, ListGroup, Row, Card } from 'react-bootstrap';
-import io from 'socket.io-client';
 import AuthService from '../../services/auth.service';
 import '../../styles/chat.scss';
 
@@ -8,7 +7,6 @@ function Chat() {
   const maxMessages = 500;
   const messagesEndRef = useRef();
   const author = AuthService.getCurrentUser().user.username;
-  //let chatSocket = io('/chat');
   const [validated, setValidated] = useState(false);
   const [messages, setMessages] = useState([
     { type: 'message', author: 'Alice', content: 'Bonjour !'},
@@ -16,15 +14,6 @@ function Chat() {
     { type: 'info', content: 'Bob remporte la manche !'}
   ]);
   const [messageBuffer, setMessageBuffer] = useState('');
-  const [socket, setSocket] = useState(null);
-
-  /*
-  useEffect(() => {
-    const newSocket = io('http://localhost:3000');
-    setSocket(newSocket);
-    return () => newSocket.close();
-  }, [setSocket]);
-  */
 
   const addInfo = (content) => {
     setMessages([...messages, { type: 'info', content }]);
@@ -96,7 +85,6 @@ function Chat() {
       <Col className='flex-column'>
         <Card className='w-100'>
           <Card.Body className='chat'>
-            <Card.Title className='text-center'>Chat</Card.Title>
             {renderAllMessages()}
             <div ref={messagesEndRef}/>
           </Card.Body>
