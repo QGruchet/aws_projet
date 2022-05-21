@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Alert, Button, Form } from 'react-bootstrap';
+import { Alert, Button, Container, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Navigation from '../components/Navigation';
 import { UsernamePattern, PasswordPattern } from '../utils/regex-pattern';
@@ -57,7 +57,7 @@ function Signup() {
   }
 
   return (
-    <div>
+    <Container fluid='w-100' id='page'>
       <Navigation />
       <Form className='auth-form-container' noValidate validated={validated} onSubmit={handleSubmit}>
         <h1>Création de compte</h1>
@@ -92,7 +92,7 @@ function Signup() {
         <br/>
         <Button type='submit'>S'inscrire</Button>
       </Form>
-    </div>
+    </Container>
   );
 }
 

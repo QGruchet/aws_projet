@@ -1,11 +1,13 @@
 import React from 'react';
 import Navigation from "../components/Navigation";
+import { Alert, Button, Container, Form } from 'react-bootstrap';
+
 
 export default function Tutorial() {
   return (
-    <div>
+    <Container fluid='w-100' id='page'>
       <Navigation />
-      <h1>How to play this game ?</h1>
-    </div>
+      <h2>How to play this game ?</h2>
+    </Container>
   );
 };
