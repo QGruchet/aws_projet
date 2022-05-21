@@ -29,4 +29,6 @@ const Player = db.define('player', {
 User.belongsToMany(Room, { through: Player, unique: false, foreignKey: 'user_id' });
 Room.belongsToMany(User, { through: Player, unique: false, foreignKey: 'room_id' });
 
+Player.sync()
+
 module.exports = Player;

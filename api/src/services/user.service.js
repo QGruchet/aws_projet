@@ -3,9 +3,7 @@ const crypto = require('../utils/crypto.util');
 const jwt = require('jsonwebtoken');
 
 class UserService {
-  constructor() {
-    this.users = [];
-  }
+  constructor() { }
 
   /**
    * Try to authenticate a user.
@@ -15,8 +13,6 @@ class UserService {
    */
   authenticate(login, password) {
     const hashedPassword = crypto.sha256(password);
-    /*return this.users.find(u => (u.email === login || u.username === login)
-      && u.password === hashedPassword)*/
     return User.findOne({
       where: {
         $or: [
@@ -45,9 +41,6 @@ class UserService {
    * @param {string} password
    */
   create(username, email, password) {
-    /*const user = new User(username, email, password);
-    this.users.push(user);
-    return user;*/
     const hashedPassword = crypto.sha256(password);
     const user = {
       username: username,
@@ -89,7 +82,6 @@ class UserService {
    * @returns The user or undefined if not found.
    */
   findByEmail(email) {
-    //return this.users.find(u => u.email === email);
     return User.findOne({ where: { email: email } })
   }
 

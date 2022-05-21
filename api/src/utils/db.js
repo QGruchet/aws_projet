@@ -18,6 +18,4 @@ try {
   console.error('Unable to connect to the database:', error);
 }
 
-// database.sync()
-
 module.exports = sequelize;

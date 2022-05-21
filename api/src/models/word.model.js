@@ -1,24 +1,29 @@
-const sequelize = require('sequelize');
+const { DataTypes, Model } = require('sequelize');
 const db = require('../utils/db');
 
-const Word = db.define('word', {
+class Word extends Model { otherPublicField }
+
+Word.init({
     id: {
-        type: sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
     },
     text: {
-        type: sequelize.STRING(30),
+        type: DataTypes.STRING(30),
         allowNull: false,
         unique: true
     },
     difficulty: {
-        type: sequelize.ENUM('easy', 'normal', 'hard'),
+        type: DataTypes.ENUM('easy', 'normal', 'hard'),
         allowNull: false,
     }
 }, {
-    tableName: 'Word',
+    sequelize: db,
+    modelName: 'Word',
     timestamps: false
 });
+
+Word.sync()
 
 module.exports = Word;

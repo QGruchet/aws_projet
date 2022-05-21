@@ -1,32 +1,35 @@
-const sequelize = require('sequelize');
+const { DataTypes, Model } = require('sequelize');
 const db = require('../utils/db');
-const User = require('./user');
+const User = require('./user.model');
 
-const Room = db.define('room', {
+class Room extends Model { otherPublicField }
+
+Room.init({
     id: {
-        type: sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
     name: {
-        type: sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false,
         unique: true
     },
     max_players: {
-        type: sequelize.SMALLINT,
+        type: DataTypes.SMALLINT,
         allowNull: false
     },
     nb_rounds: {
-        type: sequelize.SMALLINT,
+        type: DataTypes.SMALLINT,
         allowNull: false
     },
     draw_time: {
-        type: sequelize.SMALLINT,
+        type: DataTypes.SMALLINT,
         allowNull: false
     }
 }, {
-    tableName: 'Room',
+    sequelize: db,
+    modelName: 'Room',
     timestamps: false
 });
 
@@ -42,5 +45,7 @@ Room.belongsTo(User, {
         allowNull: false
     }
 });
+
+Room.sync()
 
 module.exports = Room;

@@ -24,10 +24,7 @@ User.init({
     },
     password: {
         type: DataTypes.STRING(100),
-        allowNull: false,
-        /*validate: {
-          is: /^[0-9a-f]{64}$/i
-        }*/
+        allowNull: false
     },
     wins: {
         type: DataTypes.INTEGER,
@@ -44,5 +41,7 @@ User.init({
     modelName: 'User',
     timestamps: false
 });
+
+User.sync()
 
 module.exports = User;
