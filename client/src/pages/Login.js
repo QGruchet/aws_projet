@@ -12,19 +12,16 @@ function Login() {
   const [form, setForm] = useState({});
   let navigate = useNavigate();
 
-  const dismissError = () => {
-    setError('');
-  };
-
   const handleSubmit = (event) => {
-    dismissError();
     event.preventDefault();
     if (event.currentTarget.checkValidity()) {
       tryLogin();
+      setValidated(false);
+      event.target.reset();
     } else {
       event.stopPropagation();
+      setValidated(true);
     }
-    setValidated(true);
   };
 
   const setFormField = (field, value) => {
@@ -39,7 +36,7 @@ function Login() {
       AuthService.login(res.data);
       navigate('/');
     }).catch((err) => {
-      setError('Une erreur est survenue lors de l\'inscription');
+      setError('Identifiant ou mot de passe invalide');
     });
   }
 
@@ -48,7 +45,7 @@ function Login() {
       <Navigation />
       <Form className='auth-form-container' noValidate validated={validated} onSubmit={handleSubmit}>
         <h1>Connexion</h1>
-        { error.length > 0 && <Alert variant='danger' onClose={() => dismissError()} dismissible>{error}</Alert> }
+        { error.length > 0 && <Alert variant='danger'>{error}</Alert> }
         <Form.Group className='auth-form-group' controlId='validation-login'>
           <Form.Control className='auth-form-control' required type='text'
             placeholder="Adresse email ou nom d'utilisateur"
