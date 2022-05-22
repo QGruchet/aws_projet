@@ -10,6 +10,7 @@ import Signup from './pages/Signup';
 import Tutorial from './pages/Tutorial';
 import CreateGame from './pages/CreateGame';
 import { PrivateRoute, PublicRoute } from './utils/RouteGuards'
+import Settings from './pages/Settings';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path='/signup' element={<PublicRoute><Signup /></PublicRoute>} />
         <Route path='/tutorial' element={<Tutorial />} />
         <Route path='/room-select' element={<PrivateRoute><RoomSelect /></PrivateRoute>} />
+        <Route path='/settings' element={<PrivateRoute><Settings /></PrivateRoute>} />
         <Route path='/play' element={<PrivateRoute><Play /></PrivateRoute>} />
         <Route path='/create-room' element={<PrivateRoute><CreateGame /></PrivateRoute>} />
         <Route path='/' element={<Home />} />

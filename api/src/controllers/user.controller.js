@@ -58,10 +58,30 @@ async function signUp(req, res) {
   res.send({ user, accessToken });
 }
 
+async function changeName(req, res) {
+  const user = await userService.create({ name: me });
+  const username = req.body;
+  if (!username)
+    return res.status(httpStatus.StatusCodes.BAD_REQUEST).send('No username provided')
+  userService.changeName(user, username);
+
+}
+
+async function changePswrd(req, res) {
+  const user = await userService.create({ name: me });
+  const password = req.body;
+  if (!password)
+    return res.status(httpStatus.StatusCodes.BAD_REQUEST).send('No password provided')
+  userService.changePswrd(user, password);
+
+}
+
 module.exports = {
   list,
   login,
   me,
   profile,
-  signUp
+  signUp,
+  changeName,
+  changePswrd
 };

@@ -50,7 +50,10 @@ export default function Navigation() {
 
   const renderMenu = () => {
     if (AuthService.isAuthenticated())
-      return (<Nav.Link href='/room-select'>Jouer</Nav.Link>);
+      return (<Nav className='me-auto2'>
+                <Nav.Link href='/room-select'>Jouer</Nav.Link>
+                <Nav.Link href='/settings'>Paramètres</Nav.Link>
+              </Nav>);
   }
 
   return (

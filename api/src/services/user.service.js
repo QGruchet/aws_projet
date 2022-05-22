@@ -91,6 +91,33 @@ class UserService {
     return jwt.sign({ id: user.id }, process.env.JWT_ACCESS_TOKEN_SECRET,
       { expiresIn: process.env.JWT_ACCESS_TOKEN_EXPIRES_IN });
   }
+
+
+  /**
+   * Change an user's username
+   * @param {User} user Current user info
+   * @param {User.name} newname The user's selected new name
+   */
+  async changeName(user, newname){
+
+    console.log(user.name); 
+    user.name = newname;
+    await user.save();
+    
+  }
+
+  /**
+   * Change an user's password
+   * @param {User} user Current user info
+   * @param {User.password} newpswrd The user's new password
+   */
+  async changePassword(user, newpswrd){
+
+    console.log(user.password);
+    user.password = newpswrd;
+    await user.save();
+
+  }
 }
 
 module.exports = new UserService();

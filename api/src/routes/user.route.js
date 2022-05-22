@@ -8,5 +8,7 @@ router.post('/login', userController.login);
 router.get('/me', checkAuth, userController.me);
 router.get('/profile', checkAuth, userController.profile);
 router.post('/sign-up', userController.signUp);
+router.post('/change-name', userController.changeName);
+router.post('/change-pswrd', userController.changePswrd);
 
 module.exports = router;

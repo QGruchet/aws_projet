@@ -18,6 +18,15 @@ class AuthService {
     localStorage.setItem('user', JSON.stringify(data));
   }
 
+  changeName(data) {
+    console.log(data)
+    localStorage.setItem('user', JSON.stringify(data));
+  }
+
+  changePswrd(data) {
+    localStorage.setItem('user', JSON.stringify(data));
+  }
+
   logout() {
     localStorage.removeItem('user');
   }
