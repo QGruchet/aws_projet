@@ -94,14 +94,14 @@ function Chat({ socket }) {
       <Form className='chat-form' noValidate validated={validated} onSubmit={handleSubmit}>
         <Row className='w-100'>
           <Col sm={8}>
-            <Form.Group className='m-2 w-100'>
+            <Form.Group className='ms-2 mt-2 w-100'>
               <Form.Control required type='text' placeholder='Message'
                 onChange={(e) => setMessageBuffer(e.target.value)}
               />
             </Form.Group>
           </Col>
-          <Col sm={4}>
-            <Button className='m-2 w-100' type='submit'>Envoyer</Button>
+          <Col className='p-0' sm={4}>
+            <Button className='mt-2 w-100' type='submit'>Envoyer</Button>
           </Col>
         </Row>
       </Form>
