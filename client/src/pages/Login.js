@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Alert, Button, Form } from 'react-bootstrap';
+import { Alert, Button, Container, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Navigation from '../components/Navigation';
 import ApiConnection from '../utils/api-connection';
@@ -44,8 +44,9 @@ function Login() {
   }
 
   return (
-    <div>
+    <Container fluid='w-100' id='page'>
       <Navigation />
+      <div className='pin'></div>
       <Form className='auth-form-container' noValidate validated={validated} onSubmit={handleSubmit}>
         <h1>Connexion</h1>
         { error.length > 0 && <Alert variant='danger' onClose={() => dismissError()} dismissible>{error}</Alert> }
@@ -64,7 +65,7 @@ function Login() {
         <br></br>
         <Button type='submit'>Se connecter</Button>
       </Form>
-    </div>
+    </Container>
   );
 }
 
