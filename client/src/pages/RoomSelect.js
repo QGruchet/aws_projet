@@ -2,10 +2,11 @@ import { NavLink } from "react-router-dom";
 import Navigation from "../components/Navigation";
 import React from 'react';
 import {Col, Form, Row} from "reactstrap";
+import { Alert, Button, Container } from 'react-bootstrap';
 
 const RoomSelect = () => {
   return (
-    <div>
+    <Container fluid='w-100' id='page'>
       <Navigation/>
       <Row className= "justify-content-center" id={"create-room"}>
         <Form className='create-room-form-container d-flex'>
@@ -31,7 +32,7 @@ const RoomSelect = () => {
           </Col>
         </Form>
       </Row>
-    </div>
+    </Container>
   );
 };
 
