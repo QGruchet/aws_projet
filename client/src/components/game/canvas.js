@@ -75,7 +75,7 @@ function Canvas() {
   }
 
   const onMouseMove = (e, isDrawing) => {
-    draw(e.pageX - 390, e.pageY - 140)
+    draw(e.pageX - 338, e.pageY - 70)
   }
 
   const clear = () => {
@@ -105,10 +105,10 @@ function Canvas() {
       <div className={"Canvas"}>
         <canvas
           style={{
-            border: "1px solid #000",
+            border: "solid 5px black",
           }}
-          width={"1100%"}
-          height={"700%"}
+          width={"1260%"}
+          height={"800%"}
           ref={canvasRef}
           onMouseMove={onMouseMove}
           onMouseUp={onMouseUp}

@@ -1,15 +1,17 @@
 select, button {
-  padding: 1% 1% 1% 1%;
+  padding: 1% 1% 1% 2%;
   font-size: 18px;
-  border: 2px solid #ccc;
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  border: solid 2px black;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   position: center;
+  margin: 2px;
 }
 .options {
   position: center;
-  padding-left: 38%;
+  padding-left: 32%;
 }
 
 select::-ms-expand {
@@ -17,8 +19,9 @@ select::-ms-expand {
 }
 
 canvas {
-  margin-top: 4%;
-  margin-left: 20%;
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  margin-top: 5px;
+  margin-left: 5px;
 }
 
 .Canvas {
