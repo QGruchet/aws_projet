@@ -1,42 +1,23 @@
-const User = require('../models/user.model');
-const crypto = require('../utils/crypto.util');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const { Op } = require('sequelize');
+const crypto = require('../utils/crypto.util');
+const User = require('../models/user.model');
 
 class UserService {
-  constructor() { }
-
   /**
    * Try to authenticate a user.
    * @param {string} login The username or email address of the user.
    * @param {string} password The password of the user.
    * @returns The user or undefined if not found.
    */
-  authenticate(login, password) {
-    const user = User.findOne({
-      where: {
-        $or: [
-          {
-            username:
-            {
-              $eq: login
-            }
-          },
-          {
-            email:
-            {
-              $eq: login
-            }
-          }
-        ]
-      }
-    });
-    if (user == undefined) return undefined;
-    let compare = bcrypt.compareSync(password, user.password);
-    if (compare){
-      return user; 
-    }
-    return undefined;
+  async authenticate(login, password) {
+    return User.findOne({
+      where: { [Op.or]: [{ username: login }, { email: login }] }
+    }).then(u => {
+      const user = u.dataValues;
+      return bcrypt.compareSync(password, user.password) ? user : undefined;
+    }).catch((_err) => { return undefined; });
   }
 
   /**
@@ -44,23 +25,28 @@ class UserService {
    * @param {string} username
    * @param {string} email
    * @param {string} password
+   * @returns The created user or undefined on error.
    */
-  create(username, email, password) {
+  async create(username, email, password) {
     const hashedPassword = crypto.bcrypt_func(password);
     const user = {
       username: username,
       email: email,
       password: hashedPassword,
     }
-    return User.create(user)
+    return await User.create(user)
+      .then(u => { return u.dataValues; })
+      .catch((_err) => { return undefined; });
   }
 
   /**
   * Finds all users.
   * @returns The list of users.
   */
-  findAll() {
-    return User.findAll();
+  async findAll() {
+    return User.findAll()
+      .then(u => { return u.dataValues; })
+      .catch((_err) => { return undefined; });
   }
 
   /**
@@ -68,8 +54,10 @@ class UserService {
    * @param {number} id
    * @returns The user or undefined if not found.
    */
-  findById(id) {
-    return findByPk(id);
+   async findById(id) {
+    return findByPk(id)
+      .then(u => { return u.dataValues; })
+      .catch((_err) => { return undefined; });
   }
 
   /**
@@ -77,8 +65,10 @@ class UserService {
    * @param {string} username
    * @returns The user or undefined if not found.
    */
-  findByUsername(username) {
+   async findByUsername(username) {
     return User.findOne({ where: { username: username } })
+      .then(u => { return u.dataValues; })
+      .catch((_err) => { return undefined; });
   }
 
   /**
@@ -86,16 +76,19 @@ class UserService {
    * @param {string} email
    * @returns The user or undefined if not found.
    */
-  findByEmail(email) {
+  async findByEmail(email) {
     return User.findOne({ where: { email: email } })
+      .then(u => { return u.dataValues; })
+      .catch((_err) => { return undefined; });
   }
 
   /**
    * Generates a new access token for the user.
+   * @param {User} user The user.
    * @returns The new access token.
    */
-  generateAccessToken() {
-    return jwt.sign({ ...this }, process.env.JWT_ACCESS_TOKEN_SECRET,
+  generateAccessToken(user) {
+    return jwt.sign({ id: user.id }, process.env.JWT_ACCESS_TOKEN_SECRET,
       { expiresIn: process.env.JWT_ACCESS_TOKEN_EXPIRES_IN });
   }
 }
