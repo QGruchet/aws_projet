@@ -6,11 +6,9 @@ const Random = require("../utils/random.utils");
 
 class GameService {
   #lobbyManager;
-  #clients;
 
   constructor() {
     this.#lobbyManager = new LobbyManager();
-    this.#clients = new Map();
   }
 
   /**
@@ -19,20 +17,9 @@ class GameService {
    * @returns {Lobby} The lobby where the player was assigned or undefined on failure.
    */
    assign(playerId) {
-    if (this.#clients.get(playerId) !== undefined)
-      return undefined;
     const lobby = this.#lobbyManager.selectRandomPublicLobby();
     lobby.join(playerId);
-    this.#clients.set(playerId, lobby.id);
     return lobby;
-  }
-
-  /**
-   * Connects a player.
-   * @param {string} socketId The player's socket id.
-   */
-  connect(socketId) {
-    this.#clients.set(socketId, undefined);
   }
 
   /**
@@ -58,15 +45,11 @@ class GameService {
    * @returns {Lobby} The lobby where the client was disconnected from or undefined if the client wasn't playing.
    */
    disconnect(socketId) {
-    const lobbyId = this.#clients.get(socketId);
-    if (!lobbyId)
-      return undefined;
-    this.#clients.delete(socketId);
-    const lobby = this.#lobbyManager.find(lobbyId);
+    const lobby = this.#lobbyManager.find(0);
     if (!lobby)
       return undefined;
     if (lobby.isEmpty())
-      this.#lobbyManager.remove(lobbyId);
+      this.#lobbyManager.remove(0);
     return lobby;
   }
 

@@ -1,31 +1,41 @@
 import { useEffect, useState } from 'react';
-import { Button, Col, Container } from 'react-bootstrap';
-import io from 'socket.io-client';
+import { Col, Container } from 'react-bootstrap';
 import Navigation from '../components/Navigation';
 //import Canvas from '../components/game/canvas';
 import Chat from '../components/game/Chat';
-
-let socketInstance = io('http://localhost:3000/game');
+import AuthService from '../services/auth.service';
 
 const Play = () => {
-  const [socket, setSocket] = useState(socketInstance);
+  const [socket, setSocket] = useState(AuthService.gameSocket());
 
   useEffect(() => {
-    socketInstance.on('pong', pongListener);
+    console.log('Play: useEffect');
+
+    socket.on('connect', connectListener);
+    socket.on('pong', pongListener);
 
     return () => {
-      socketInstance.off('pong', pongListener);
-      socketInstance.disconnect();
+      socket.off('connect', connectListener);
+      socket.off('pong', pongListener);
     };
   }, [setSocket]);
 
+  const connectListener = () => {
+    console.log('Play: connectListener');
+    console.log(socket.id);
+  };
+
+  const timeListener = (time) => {
+    console.log('Play: timeListener');
+    console.log(time);
+  };
+
   const pongListener = () => {
-    console.log("Play.js - socket.on('pong')");
-    socketInstance.emit("pong");
+    console.log('Play: pongListener');
   };
 
   const test = () => {
-    socketInstance.emit('ping');
+    socket.emit('ping');
   };
 
   return (
@@ -34,7 +44,6 @@ const Play = () => {
         <Navigation/>
         {/*<Canvas/>*/}
         <Chat socket={socket}/>
-        <Button onClick={test}>Test</Button>
       </Col>
     </Container>
   )

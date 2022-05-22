@@ -55,7 +55,7 @@ class UserService {
    * @returns The user or undefined if not found.
    */
    async findById(id) {
-    return findByPk(id)
+    return User.findByPk(id)
       .then(u => { return u.dataValues; })
       .catch((_err) => { return undefined; });
   }
