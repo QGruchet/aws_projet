@@ -1,0 +1,29 @@
+@import 'theme.scss';
+
+select, button {
+  padding: 1% 1% 1% 2%;
+  font-size: 18px;
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  border: solid 2px $primary;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  position: center;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+.canvas {
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  border: solid 5px $primary;
+  display: flex;
+  width: 60vw;
+  height: 80vh;
+  margin-top: 5%;
+}
+
+.canvas-options {
+  position: center;
+}

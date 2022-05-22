@@ -10,12 +10,14 @@ import Signup from './pages/Signup';
 import Tutorial from './pages/Tutorial';
 import CreateGame from './pages/CreateGame';
 import { PrivateRoute, PublicRoute } from './utils/RouteGuards'
+import Canvas from './components/game/Canvas';
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path='*' element={<Notfound />} />
+        <Route path='/canvas' element={<Canvas />} />
         <Route path='/about' element={<About />} />
         <Route path='/login' element={<PublicRoute><Login /></PublicRoute>} />
         <Route path='/signup' element={<PublicRoute><Signup /></PublicRoute>} />
