@@ -1,3 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Grape+Nuts&family=Open+Sans:ital,wght@1,600&display=swap');
+
+#font, #subtitles {
+  font-family: 'Grape Nuts', cursive;
+  font-size: 200%;
+}
+
+#subtitles {
+  font-size: 300%;
+}
+
 #page {
   height: 100vh;
   background-image: linear-gradient(to top right, #86faff, #fffdd2, #fa86ff);
