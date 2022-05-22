@@ -1,9 +1,23 @@
+import io from 'socket.io-client';
+
 class AuthService {
+  constuctor() {
+    this.gameSocketInstance = null;
+  }
+
   authHeader() {
-    const user = this.getCurrentUser();
-    if (user)
-      return { 'Authorization': 'Bearer ' + user.accessToken };
-    return {};
+    const u = this.getCurrentUser();
+    return u ? { 'Authorization': 'Bearer ' + u.accessToken } : {};
+  }
+
+  gameSocket() {
+    if (!this.gameSocketInstance)
+    {
+      this.gameSocketInstance = io('http://localhost:3000/game', {
+        query: { token: this.getCurrentUser().accessToken }, transports: ['websocket']
+      });
+    }
+    return this.gameSocketInstance;
   }
 
   getCurrentUser() {

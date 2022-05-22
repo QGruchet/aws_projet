@@ -8,42 +8,37 @@ function Chat({ socket }) {
   const messagesEndRef = useRef();
   const user = AuthService.getCurrentUser().user;
   const [validated, setValidated] = useState(false);
-  const [messages, setMessages] = useState([
-    { type: 'message', author: 'Alice', content: 'Bonjour !'},
-    { type: 'message', author: 'Bob', content: 'Salut 🙂'},
-    { type: 'info', content: 'Bob remporte la manche !'}
-  ]);
+  const [messages, setMessages] = useState([]);
   const [messageBuffer, setMessageBuffer] = useState('');
 
   useEffect(() => {
-    const messageListener = (data) => {
-      addMessage(data.author, data.content);
-    };
-
-    socket.on('message', messageListener);
+    socket.on('info', addInfo);
+    socket.on('message', addMessage);
 
     return () => {
-      socket.off('message', messageListener);
+      socket.off('info', addInfo);
+      socket.off('message', addMessage);
     };
-  }, [socket]);
+  }, [socket, messages]);
 
-  const addInfo = (content) => {
-    setMessages([...messages, { type: 'info', content }]);
-    if (messages.length > maxMessages)
+  const addInfo = (data) => {
+    setMessages([...messages, { type: 'info', content: data.content }]);
+    if (messages.length >= maxMessages)
       setMessages(messages.slice(messages.length - maxMessages));
   }
 
-  const addMessage = (author, content) => {
-    setMessages([...messages, { type: 'message', author, content }]);
-    if (messages.length > maxMessages)
+  const addMessage = (data) => {
+    setMessages([...messages, { type: 'message', author: data.author, content: data.content }]);
+    if (messages.length >= maxMessages)
       setMessages(messages.slice(messages.length - maxMessages));
-  }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (event.currentTarget.checkValidity()) {
+      socket.emit('message', messageBuffer);
+      setMessageBuffer('');
       event.target.reset();
-      submit();
       setValidated(false);
     } else {
       event.stopPropagation();
@@ -83,12 +78,6 @@ function Chat({ socket }) {
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'instant' })
-  }
-
-  const submit = () => {
-    socket.emit('message', { userId: user.id, content: messageBuffer });
-    addMessage(user.username, messageBuffer);
-    setMessageBuffer('');
   }
 
   useEffect(() => {
