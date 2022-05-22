@@ -7,7 +7,7 @@ const About = () => {
   return (
     <Container fluid='w-100'>
       <Navigation />
-      <h2 className='text-center mt-md-5' id='subtitles'><strong>A propos :</strong></h2>
+      <h2 className='text-center mt-md-5 my-5' id='subtitles'><strong>A propos :</strong></h2>
       <p id={"font"} className='text-center mt-md-5'> Cette application a été réalisée dans le cadre de notre projet d'Application Web et Sécurité.</p>
       <p id={"font"} className='text-center'> Elle se présente sous la forme d'un jeu multijoueur en ligne.</p>
       <p id={"font"} className='text-center'> Elle a été réalisée en JavaScript et utilise le framework <i>React</i> </p>
