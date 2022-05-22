@@ -3,7 +3,7 @@ import { Button, Container, Form, Col, Row, Card } from 'react-bootstrap';
 import '../../styles/chat.scss';
 
 function Chat({ socket }) {
-  const maxMessages = 100;
+  const maxMessages = 40;
   const messagesEndRef = useRef();
   const [validated, setValidated] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -46,8 +46,8 @@ function Chat({ socket }) {
 
   const renderInfo = (message, i) => {
     return (
-      <Card className='chat-item mb-2 text-info' key={i}>
-        <Card.Body className='p-2'>
+      <Card className='chat-item mb-1 text-info' key={i}>
+        <Card.Body className='p-1'>
           <Card.Title>{message.content}</Card.Title>
         </Card.Body>
       </Card>
@@ -56,8 +56,8 @@ function Chat({ socket }) {
 
   const renderMessage = (message, i) => {
     return (
-      <Card className='chat-item mb-2' key={i}>
-        <Card.Body className='p-2'>
+      <Card className='chat-item mb-1' key={i}>
+        <Card.Body className='p-1'>
           <Card.Title>{message.author}</Card.Title>
           <Card.Text>{message.content}</Card.Text>
         </Card.Body>
@@ -83,8 +83,8 @@ function Chat({ socket }) {
   }, [messages]);
 
   return (
-    <Col className='flex-column'>
-      <Card className='w-100'>
+    <Col className='p-0'>
+      <Card className>
         <Card.Body className='chat'>
           <Card.Title className='text-center'><div id='chat-title'>Chat</div></Card.Title>
           {renderAllMessages()}

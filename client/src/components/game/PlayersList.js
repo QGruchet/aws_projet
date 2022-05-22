@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Badge, Col, Container, ListGroup } from 'react-bootstrap';
+import { Badge, Col, ListGroup } from 'react-bootstrap';
 import '../../styles/players-list.scss';
 
 function PlayersList({ socket }) {
@@ -29,7 +29,7 @@ function PlayersList({ socket }) {
 
   const renderPlayer = (p, i) => {
     return (
-      <ListGroup.Item key={i} className='d-flex justify-content-between align-items-start' variant='light'>
+      <ListGroup.Item key={i} className='p-1 d-flex justify-content-between align-items-start' variant='light'>
         <div className='ms-2 me-auto fw-bold'>
           {p.username}
         </div>
@@ -45,9 +45,9 @@ function PlayersList({ socket }) {
   }
 
   return (
-    <Col className='flex-column players-list'>
+    <Col className='p-0 players-list'>
       <h1 className='text-center players-list-title p-2'>Joueurs</h1>
-      <ListGroup className='ms-5 me-5'>
+      <ListGroup className='ms-2 me-2'>
         {renderAllPlayers()}
       </ListGroup>
     </Col>

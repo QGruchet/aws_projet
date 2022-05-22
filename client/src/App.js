@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Tutorial from './pages/Tutorial';
 import CreateGame from './pages/CreateGame';
+import Canvas from './components/game/canvas';
 import { PrivateRoute, PublicRoute } from './utils/RouteGuards'
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path='*' element={<Notfound />} />
+        <Route path='/canvas' element={<Canvas />} />
         <Route path='/about' element={<About />} />
         <Route path='/login' element={<PublicRoute><Login /></PublicRoute>} />
         <Route path='/signup' element={<PublicRoute><Signup /></PublicRoute>} />

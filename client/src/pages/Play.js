@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import Navigation from '../components/Navigation';
-//import Canvas from '../components/game/canvas';
+import Canvas from '../components/game/canvas';
 import Chat from '../components/game/Chat';
 import PlayersList from '../components/game/PlayersList';
 import AuthService from '../services/auth.service';
@@ -10,20 +10,15 @@ const Play = () => {
   const [socket] = useState(AuthService.gameSocket());
 
   return (
-    <Container fluid='vh-100'>
+    <Container fluid='w-100'>
       <Col>
         <Navigation/>
-        <Row className='m-0 p-0 w-100'>
-          <Col className='m-0 p-0 position-fixed' xs={2}>
-              <PlayersList socket={socket}/>
+        <Row className='m-0'>
+          <PlayersList socket={socket}/>
+          <Col className='p-0 position-sticky' xs={8}>
+            <Canvas socket={socket}/>
           </Col>
-          <Col className='m-0 p-0 w-0'></Col>
-          <Col className='m-0 p-0 position-fixed' xs={10}>
-            {/*<Canvas/>*/}
-          </Col>
-          <Col className='m-0 p-0' xs={2}>
-            <Chat socket={socket}/>
-          </Col>
+          <Chat socket={socket}/>
         </Row>
       </Col>
     </Container>

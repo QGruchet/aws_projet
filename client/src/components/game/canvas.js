@@ -1,4 +1,5 @@
 import React, {useRef, useEffect, useState, useCallback} from 'react';
+import { Col } from 'react-bootstrap';
 
 const colors = [
   "black",
@@ -100,58 +101,60 @@ function Canvas() {
 
   console.log(mouseDown, lastPosition)
   return(
-    <div className={"Canvas"}>
-      <canvas
-        style={{
-          border: "1px solid #000",
-        }}
-        width={"1100%"}
-        height={"700%"}
-        ref={canvasRef}
-        onMouseMove={onMouseMove}
-        onMouseUp={onMouseUp}
-        onMouseDown={onMouseDown}
-        onMouseLeave={onMouseLeave}
-      />
-      <br />
-      <div className={"options"}>
-        <select
-          value={selectedColor}
-          onChange={(e) => setSelectedColor(e.target.value)}
-        >
-          {
-            colors.map(
-              color => <option key={color} value={color}>{color}</option>
-            )
-          }
-        </select>
+    <Col>
+      <div className={"Canvas"}>
+        <canvas
+          style={{
+            border: "1px solid #000",
+          }}
+          width={"1100%"}
+          height={"700%"}
+          ref={canvasRef}
+          onMouseMove={onMouseMove}
+          onMouseUp={onMouseUp}
+          onMouseDown={onMouseDown}
+          onMouseLeave={onMouseLeave}
+        />
+        <br />
+        <div className={"options"}>
+          <select
+            value={selectedColor}
+            onChange={(e) => setSelectedColor(e.target.value)}
+          >
+            {
+              colors.map(
+                color => <option key={color} value={color}>{color}</option>
+              )
+            }
+          </select>
 
-        <select
-          value={selectedFontSize}
-          onChange={(e) => setSelectedFontSize(e.target.value)}
-        >
-          {
-            fontSizes.map(
-              fontSize => <option key={fontSize} value={fontSize}>{fontSize}</option>
-            )
-          }
-        </select>
+          <select
+            value={selectedFontSize}
+            onChange={(e) => setSelectedFontSize(e.target.value)}
+          >
+            {
+              fontSizes.map(
+                fontSize => <option key={fontSize} value={fontSize}>{fontSize}</option>
+              )
+            }
+          </select>
 
-        <select
-          value={selectedLineJoin}
-          onChange={(e) => setSelectedLineJoin(e.target.value)}
-        >
-          {
-            lineJoins.map(
-              lineJoin => <option key={lineJoin} value={lineJoin}>{lineJoin}</option>
-            )
-          }
-        </select>
-        <button onClick={fill}>Fill</button>
-        <button onClick={clear}>Clear</button>
-        <button onClick={download}>Download</button>
+          <select
+            value={selectedLineJoin}
+            onChange={(e) => setSelectedLineJoin(e.target.value)}
+          >
+            {
+              lineJoins.map(
+                lineJoin => <option key={lineJoin} value={lineJoin}>{lineJoin}</option>
+              )
+            }
+          </select>
+          <button onClick={fill}>Fill</button>
+          <button onClick={clear}>Clear</button>
+          <button onClick={download}>Download</button>
+        </div>
       </div>
-    </div>
+    </Col>
   )
 }
 
