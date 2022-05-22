@@ -22,7 +22,10 @@ canvas {
   border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
   margin-top: 0.5%;
   margin-left: 0.5%;
-
+  min-height: calc(100vh - 112px);
+  max-height: calc(100vh - 112px);
+  min-width: calc(147vh - 112px);
+  max-width: calc(147vh - 112px);
 }
 
 .Canvas {
