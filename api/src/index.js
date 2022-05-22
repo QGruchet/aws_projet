@@ -46,7 +46,7 @@ const port = process.env.PORT;
 const server = require('http').createServer(app)
 const io = require('socket.io')(server);
 
-app.use(cors({ origin: 'http://localhost' }));
+app.use(cors({ credentials: true, origin: 'http://localhost' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 initRoutes(app);
