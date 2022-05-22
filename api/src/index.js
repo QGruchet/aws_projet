@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors'); // Cross-Origin Resource Sharing
-const pgp = require('pg-promise')();
 const fs = require('fs');
 const User = require('./models/user.model')
 const Room = require('./models/room.model')
@@ -39,18 +38,13 @@ function initRoutes(app) {
       app.use(`/${routeName}`, require(`./${routesDirectory}/${file}`));
     }
   });
-
-  // TODO: Remove this route
-  app.get('/', (_req, res) => {
-    res.sendFile(__dirname + '/index.html');
-  });
 }
 
 // Application configuration
 const app = express();
 const port = process.env.PORT;
 const server = require('http').createServer(app)
-const io = require('socket.io')(server, { cors: { origin: `http://localhost:${port}` } });
+const io = require('socket.io')(server, { cors: { origin: 'http://localhost' } });
 
 app.use(cors({ credentials: true, origin: 'http://localhost' }));
 app.use(express.urlencoded({ extended: true }));
@@ -59,15 +53,6 @@ initRoutes(app);
 initHandlers(io);
 
 // Database configuration
-const db = pgp({
-  host: 'db',
-  port: 5432,
-  database: process.env.POSTGRES_DB,
-  user: process.env.POSTGRES_USER,
-  password: process.env.POSTGRES_PASSWORD,
-  max: 32 // max size of the connection pool
-});
-
 async function createTables() {
   await User.sync();
   await Room.sync();

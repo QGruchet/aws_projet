@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Navigation from '../components/Navigation';
 import ApiConnection from '../utils/api-connection';
 import AuthService from '../services/auth.service';
-import '../styles/form.scss';
+import '../styles/auth-form.scss';
 
 function Login() {
   const [validated, setValidated] = useState(false);
@@ -12,19 +12,16 @@ function Login() {
   const [form, setForm] = useState({});
   let navigate = useNavigate();
 
-  const dismissError = () => {
-    setError('');
-  };
-
   const handleSubmit = (event) => {
-    dismissError();
     event.preventDefault();
     if (event.currentTarget.checkValidity()) {
+      setValidated(false);
+      event.target.reset();
       tryLogin();
     } else {
       event.stopPropagation();
+      setValidated(true);
     }
-    setValidated(true);
   };
 
   const setFormField = (field, value) => {
@@ -39,7 +36,7 @@ function Login() {
       AuthService.login(res.data);
       navigate('/');
     }).catch((err) => {
-      setError('Une erreur est survenue lors de l\'inscription');
+      setError('Identifiant ou mot de passe invalide');
     });
   }
 
@@ -49,15 +46,15 @@ function Login() {
       <div className='pin'></div>
       <Form className='auth-form-container' noValidate validated={validated} onSubmit={handleSubmit}>
         <h1>Connexion</h1>
-        { error.length > 0 && <Alert variant='danger' onClose={() => dismissError()} dismissible>{error}</Alert> }
+        { error.length > 0 && <Alert variant='danger'>{error}</Alert> }
         <Form.Group className='auth-form-group' controlId='validation-login'>
-          <Form.Control required type='text'
-            placeholder="Addresse email ou nom d'utilisateur"
+          <Form.Control className='auth-form-control' required type='text'
+            placeholder="Adresse email ou nom d'utilisateur"
             onChange={(e) => setFormField('login', e.target.value)}
           />
         </Form.Group>
         <Form.Group className='auth-form-group' controlId='validation-password'>
-          <Form.Control required type='password'
+          <Form.Control className='auth-form-control' required type='password'
             placeholder='Mot de passe'
             onChange={(e) => setFormField('password', e.target.value)}
           />

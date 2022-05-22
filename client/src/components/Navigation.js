@@ -9,6 +9,7 @@ import {
 } from 'react-bootstrap';
 import AuthService from '../services/auth.service';
 import { useNavigate } from 'react-router-dom';
+import '../styles/navigation.scss';
 
 export default function Navigation() {
   let navigate = useNavigate();
@@ -25,7 +26,7 @@ export default function Navigation() {
           <Form>
             <FormControl
               type='search'
-              className='me-1'
+              className='mt-1'
               aria-label='Search'
               placeholder='Rechercher'
               size='sm'
@@ -53,7 +54,7 @@ export default function Navigation() {
   }
 
   return (
-    <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark'>
+    <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark' id='navbar'>
       <Container fluid>
         <Navbar.Brand href='/'>
           <img

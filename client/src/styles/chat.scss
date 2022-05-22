@@ -1,0 +1,16 @@
+.chat {
+  border-radius: 0;
+  min-height: calc(100vh - 112px);
+  overflow-y: hidden;
+}
+
+.chat-form {
+  min-height: 54px;
+  position: sticky;
+  bottom: 0;
+  background: #e0e0e0e0;
+}
+
+.chat-item {
+  box-shadow: 4px 4px 4px #00000020;
+}

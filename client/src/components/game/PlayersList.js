@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ListPlayers = () => {
+const PlayersList = () => {
   return (
     <div
       className="ListPlayers"
@@ -14,4 +14,4 @@ const ListPlayers = () => {
   );
 };
 
-export default ListPlayers;
+export default PlayersList;
