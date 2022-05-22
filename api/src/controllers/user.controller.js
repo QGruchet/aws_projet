@@ -61,6 +61,7 @@ async function signUp(req, res) {
 module.exports = {
   list,
   login,
+  me,
   profile,
   signUp
 };
