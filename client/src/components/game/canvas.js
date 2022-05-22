@@ -107,8 +107,8 @@ function Canvas() {
           style={{
             border: "solid 5px black",
           }}
-          width={"1260%"}
-          height={"800%"}
+          width={"1258%"}
+          height={"795%"}
           ref={canvasRef}
           onMouseMove={onMouseMove}
           onMouseUp={onMouseUp}
