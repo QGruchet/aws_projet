@@ -1,9 +1,18 @@
+#page {
+  height: 100vh;
+  background-image: linear-gradient(to top right, #86faff, #fffdd2, #fa86ff);
+}
+
+h1 {
+  color: white;
+}
+
 .auth-form-container {
-  background-color: #bdc5cf;
-  border-radius: 50px;
+  background-color: #262b30E0;
+  border-radius: 15px;
+  margin: 5% auto;
   max-width: 40%;
   min-width: 300px;
-  margin: 5% auto;
   padding: 5% 10px 5% 10px;
   text-align: center;
 }

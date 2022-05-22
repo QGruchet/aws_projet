@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Alert, Button, Form } from 'react-bootstrap';
+import { Alert, Button, Container, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Navigation from '../components/Navigation';
 import ApiConnection from '../utils/api-connection';
@@ -15,9 +15,9 @@ function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (event.currentTarget.checkValidity()) {
-      tryLogin();
       setValidated(false);
       event.target.reset();
+      tryLogin();
     } else {
       event.stopPropagation();
       setValidated(true);
@@ -41,8 +41,9 @@ function Login() {
   }
 
   return (
-    <div>
+    <Container fluid='w-100' id='page'>
       <Navigation />
+      <div className='pin'></div>
       <Form className='auth-form-container' noValidate validated={validated} onSubmit={handleSubmit}>
         <h1>Connexion</h1>
         { error.length > 0 && <Alert variant='danger'>{error}</Alert> }
@@ -61,7 +62,7 @@ function Login() {
         <br></br>
         <Button type='submit'>Se connecter</Button>
       </Form>
-    </div>
+    </Container>
   );
 }
 

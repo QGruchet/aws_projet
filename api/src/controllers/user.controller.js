@@ -1,34 +1,39 @@
 const userService = require('../services/user.service');
 const httpStatus = require('http-status-codes');
 
-function list(_req, res) {
-  res.send(userService.findAll());
+async function list(_req, res) {
+  res.send(await userService.findAll());
 }
 
-function login(req, res) {
+async function login(req, res) {
   const { login, password } = req.body;
   if (!login)
     return res.status(httpStatus.StatusCodes.BAD_REQUEST).send('No email or username provided');
   if (!password)
     return res.status(httpStatus.StatusCodes.BAD_REQUEST).send('No password provided');
-  const user = userService.authenticate(login, password);
+  const user = await userService.authenticate(login, password);
   if (!user)
     return res.status(httpStatus.StatusCodes.UNAUTHORIZED).send('Invalid email or password');
-  const accessToken = user.generateAccessToken();
+  const accessToken = userService.generateAccessToken(user);
   res.json({ user, accessToken });
 }
 
-function profile(req, res) {
+async function me(req, res) {
+  req.query.id = req.id;
+  await profile(req, res);
+}
+
+async function profile(req, res) {
   const { id } = req.query;
   if (!id)
     return res.status(httpStatus.StatusCodes.BAD_REQUEST).send('No id provided');
-  const user = userService.findById(Number(id));
+  const user = await userService.findById(Number(id));
   if (!user)
     return res.status(httpStatus.StatusCodes.NOT_FOUND).send('User not found');
   res.send(user);
 }
 
-function signUp(req, res) {
+async function signUp(req, res) {
   const { username, email, password } = req.body;
   if (!username)
     return res.status(httpStatus.StatusCodes.BAD_REQUEST).send('No username provided');
@@ -36,18 +41,20 @@ function signUp(req, res) {
     return res.status(httpStatus.StatusCodes.BAD_REQUEST).send('No email provided');
   if (!password)
     return res.status(httpStatus.StatusCodes.BAD_REQUEST).send('No password provided');
-  let user = userService.findByUsername(username);
-  if (user)
+  let user = await userService.findByUsername(username);
+  if (user) {
     return res.status(httpStatus.StatusCodes.CONFLICT)
       .send({ name: 'username', message: 'Username already exists' });
-  user = userService.findByEmail(email);
-  if (user)
+  }
+  user = await userService.findByEmail(email);
+  if (user) {
     return res.status(httpStatus.StatusCodes.CONFLICT)
-    .send({ name: 'email', message: 'Email already exists' });
-  user = userService.create(username, email, password);
+      .send({ name: 'email', message: 'Email already exists' });
+  }
+  user = await userService.create(username, email, password);
   if (!user)
     return res.status(httpStatus.StatusCodes.BAD_REQUEST).send('Error creating user');
-  const accessToken = user.generateAccessToken();
+  const accessToken = userService.generateAccessToken(user);
   res.send({ user, accessToken });
 }
 

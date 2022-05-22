@@ -32,8 +32,8 @@ const Play = () => {
     <Container fluid='w-100'>
       <Col>
         <Navigation/>
-        {/*<Canvas/><Chat socket={socket}/>*/}
-
+        {/*<Canvas/>*/}
+        <Chat socket={socket}/>
         <Button onClick={test}>Test</Button>
       </Col>
     </Container>
