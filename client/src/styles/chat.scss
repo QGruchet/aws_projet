@@ -1,3 +1,5 @@
+@import './theme.scss';
+
 .chat {
   border-radius: 0;
   min-height: calc(100vh - 112px);
@@ -13,4 +15,9 @@
 
 .chat-item {
   box-shadow: 4px 4px 4px #00000020;
+}
+
+#chat-title {
+  font-size: 2.5rem;
+  color: $primary;
 }
