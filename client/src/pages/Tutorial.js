@@ -9,7 +9,8 @@ export default function Tutorial() {
       <Navigation />
       <h2 className='text-center mt-md-5' id='subtitles'><strong>How to play this game ?</strong></h2>
         <div className={"tuto-pic"}>
-         <img src='/tuto.png' alt='logo' id='logo' className="mx-auto d-block md-2 mt-5" style={{ width : "100%", height: "100%", border: "1px solid black" }}/>
+
+         <img src='/tuto.png' alt='logo' id='logo' className="mx-auto d-block md-2 mt-5" style={{ width : "99%", height: "100%", border: "1px solid black" }}/>
         </div>
         <div className={"tuto-left"}>
           <p className={"number"}><strong>1</strong></p>
