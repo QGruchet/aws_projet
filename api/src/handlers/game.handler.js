@@ -1,16 +1,34 @@
+const jwt = require('jsonwebtoken');
 const gameService = require('../services/game.service');
 const userService = require('../services/user.service');
 
-module.exports = (io) => {
-  io.on('connection', (socket) => {
-    console.log(`[/game] - User ${socket.id} connected`);
-    gameService.connect(socket.id);
+let clients = new Map();
 
-    socket.on('disconnect', () => {
-      console.log(`[/game] - User ${socket.id} disconnected`);
-      const lobby = gameService.disconnect(socket.id);
+module.exports = (io) => {
+  io.use(function(socket, next) {
+    const token = socket.handshake.query.token;
+    jwt.verify(token, process.env.JWT_ACCESS_TOKEN_SECRET, (err, decoded) => {
+      if (err) {
+        socket.disconnect();
+        return ;
+      }
+      const userId = decoded.id;
+      clients.set(socket.id, userId);
+      next();
+    });
+  }).on('connection', (socket) => {
+    socket.on('disconnect', (reason) => {
+      clients.delete(socket.id);
     });
 
+    socket.on('message', async (content) => {
+      const userId = clients.get(socket.id);
+      const user = await userService.findById(userId);
+      if (!user)
+        return ;
+      io.emit('message', { author: user.username, content: content });
+    });
+/*
     socket.on('create', (userId) => {
       console.log(`[/game] - ${userId}: create`);
       const user = userService.find(userId);
@@ -40,17 +58,6 @@ module.exports = (io) => {
 
     socket.on('start', (data) => {
       console.log(`[/game] - ${data.userId}: start`);
-    });
-
-    socket.on('message', (data) => {
-      console.log(`[/game] - message`);
-      console.log(`[/game] - ${data.userId}: ${data.content}`);
-      socket.emit('message', data.content);
-    });
-
-    socket.on('ping', () => {
-      console.log(`[/game] - ping`);
-      socket.emit('pong');
-    });
+    });*/
   });
 };

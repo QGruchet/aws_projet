@@ -1,40 +1,30 @@
 import { useEffect, useState } from 'react';
-import { Button, Col, Container } from 'react-bootstrap';
-import io from 'socket.io-client';
+import { Col, Container, Row } from 'react-bootstrap';
 import Navigation from '../components/Navigation';
 //import Canvas from '../components/game/canvas';
 import Chat from '../components/game/Chat';
-
-let socketInstance = io('http://localhost:3000/game');
+import PlayersList from '../components/game/PlayersList';
+import AuthService from '../services/auth.service';
 
 const Play = () => {
-  const [socket, setSocket] = useState(socketInstance);
-
-  useEffect(() => {
-    socketInstance.on('pong', pongListener);
-
-    return () => {
-      socketInstance.off('pong', pongListener);
-      socketInstance.disconnect();
-    };
-  }, [setSocket]);
-
-  const pongListener = () => {
-    console.log("Play.js - socket.on('pong')");
-    socketInstance.emit("pong");
-  };
-
-  const test = () => {
-    socketInstance.emit('ping');
-  };
+  const [socket] = useState(AuthService.gameSocket());
 
   return (
-    <Container fluid='w-100'>
+    <Container fluid='vh-100'>
       <Col>
         <Navigation/>
-        {/*<Canvas/>*/}
-        <Chat socket={socket}/>
-        <Button onClick={test}>Test</Button>
+        <Row className='m-0 p-0 w-100'>
+          <Col className='m-0 p-0 position-fixed' xs={2}>
+              <PlayersList socket={socket}/>
+          </Col>
+          <Col className='m-0 p-0 w-0'></Col>
+          <Col className='m-0 p-0 position-fixed' xs={10}>
+            {/*<Canvas/>*/}
+          </Col>
+          <Col className='m-0 p-0' xs={2}>
+            <Chat socket={socket}/>
+          </Col>
+        </Row>
       </Col>
     </Container>
   )
