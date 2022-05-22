@@ -9,8 +9,8 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Tutorial from './pages/Tutorial';
 import CreateGame from './pages/CreateGame';
-import Canvas from './components/game/canvas';
 import { PrivateRoute, PublicRoute } from './utils/RouteGuards'
+import Canvas from './components/game/Canvas';
 
 const App = () => {
   return (

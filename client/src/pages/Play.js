@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import Navigation from '../components/Navigation';
-import Canvas from '../components/game/canvas';
+import Canvas from '../components/game/Canvas';
 import Chat from '../components/game/Chat';
 import PlayersList from '../components/game/PlayersList';
 import AuthService from '../services/auth.service';

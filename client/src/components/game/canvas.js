@@ -1,5 +1,6 @@
 import React, {useRef, useEffect, useState, useCallback} from 'react';
-import { Col } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
+import '../../styles/game-canvas.scss'
 
 const colors = [
   "black",
@@ -30,56 +31,54 @@ function Canvas() {
   const [selectedFontSize, setSelectedFontSize] = useState(fontSizes[4])
   const [selectedLineJoin, setSelectedLineJoin] = useState(lineJoins[0])
   const [mouseDown, setMouseDown] = useState(false)
-  const [lastPosition, setPosition] = useState({
-    x: 0,
-    y: 0
-  })
+  const [position, setPosition] = useState({ x: 0, y: 0 })
 
   useEffect(() => {
-    if (canvasRef.current) {
+    if (canvasRef.current)
       ctx.current = canvasRef.current.getContext('2d');
-    }
   }, [])
 
   const draw = useCallback((x, y) => {
-      if (mouseDown) {
         ctx.current.beginPath();
         ctx.current.strokeStyle = selectedColor;
         ctx.current.lineWidth = selectedFontSize;
         ctx.current.lineJoin = selectedLineJoin;
-        ctx.current.moveTo(lastPosition.x, lastPosition.y);
+        ctx.current.moveTo(position.x, position.y);
         ctx.current.lineTo(x, y);
         ctx.current.closePath();
         ctx.current.stroke();
+        setPosition({ x, y });
+  }, [position, mouseDown, selectedColor, selectedFontSize, selectedLineJoin, setPosition])
 
-        setPosition({
-          x, y
-        })
-      }
-  }, [lastPosition, mouseDown, selectedColor, selectedFontSize, selectedLineJoin, setPosition])
+  const getMousePos = (e) => {
+    const c = ctx.current.canvas;
+    const rect = c.getBoundingClientRect(),
+      scaleX = c.width / rect.width,
+      scaleY = c.height / rect.height;
+    return {
+      x: (e.clientX - rect.left) * scaleX,
+      y: (e.clientY - rect.top) * scaleY
+    }
+  }
 
   const onMouseDown = (e) => {
-    setPosition({
-      x: e.pageX - 390,
-      y: e.pageY - 140
-    })
-    setMouseDown(true)
+    setPosition(getMousePos(e));
+    setMouseDown(true);
   }
 
   const onMouseUp = (e) => {
-    setMouseDown(false)
+    setMouseDown(false);
   }
 
   const onMouseLeave = (e) => {
-    setMouseDown(false)
+    setMouseDown(false);
   }
 
-  const onMouseMove = (e, isDrawing) => {
-    draw(e.pageX - 338, e.pageY - 70)
-  }
-
-  const clear = () => {
-    ctx.current.clearRect(0, 0, ctx.current.canvas.width, ctx.current.canvas.height)
+  const onMouseMove = (e) => {
+    if (!mouseDown)
+      return ;
+    const pos = getMousePos(e);
+    draw(pos.x, pos.y);
   }
 
   const fill = () => {
@@ -99,43 +98,33 @@ function Canvas() {
     link.click();
   }
 
-  console.log(mouseDown, lastPosition)
   return(
-    <Col>
-      <div className={"Canvas"}>
-        <canvas
-          style={{
-            border: "solid 5px black",
-          }}
-          width={"1258%"}
-          height={"795%"}
-          ref={canvasRef}
-          onMouseMove={onMouseMove}
-          onMouseUp={onMouseUp}
-          onMouseDown={onMouseDown}
-          onMouseLeave={onMouseLeave}
-        />
-        <br />
-        <div className={"options"}>
+    <Col className='p-0' align='center'>
+      <canvas className='canvas'
+        width='1200px'
+        height='800px'
+        ref={canvasRef}
+        onMouseMove={onMouseMove}
+        onMouseUp={onMouseUp}
+        onMouseDown={onMouseDown}
+        onMouseLeave={onMouseLeave}
+      />
+      <Row align='center'>
+        <div className='canvas-options'>
           <select
             value={selectedColor}
             onChange={(e) => setSelectedColor(e.target.value)}
           >
             {
-              colors.map(
-                color => <option key={color} value={color}>{color}</option>
-              )
+              colors.map(color => <option key={color} value={color}>{color}</option>)
             }
           </select>
-
           <select
             value={selectedFontSize}
             onChange={(e) => setSelectedFontSize(e.target.value)}
           >
             {
-              fontSizes.map(
-                fontSize => <option key={fontSize} value={fontSize}>{fontSize}</option>
-              )
+              fontSizes.map(fontSize => <option key={fontSize} value={fontSize}>{fontSize}</option>)
             }
           </select>
 
@@ -143,17 +132,14 @@ function Canvas() {
             value={selectedLineJoin}
             onChange={(e) => setSelectedLineJoin(e.target.value)}
           >
-            {
-              lineJoins.map(
-                lineJoin => <option key={lineJoin} value={lineJoin}>{lineJoin}</option>
-              )
-            }
+          {
+            lineJoins.map(lineJoin => <option key={lineJoin} value={lineJoin}>{lineJoin}</option>)
+          }
           </select>
           <button onClick={fill}>Fill</button>
-          <button onClick={clear}>Clear</button>
           <button onClick={download}>Download</button>
         </div>
-      </div>
+      </Row>
     </Col>
   )
 }
