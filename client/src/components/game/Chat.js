@@ -1,12 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import { Button, Container, Form, Col, ListGroup, Row, Card } from 'react-bootstrap';
-import AuthService from '../../services/auth.service';
+import { Button, Container, Form, Col, Row, Card } from 'react-bootstrap';
 import '../../styles/chat.scss';
 
 function Chat({ socket }) {
   const maxMessages = 100;
   const messagesEndRef = useRef();
-  const user = AuthService.getCurrentUser().user;
   const [validated, setValidated] = useState(false);
   const [messages, setMessages] = useState([]);
   const [messageBuffer, setMessageBuffer] = useState('');
@@ -49,7 +47,7 @@ function Chat({ socket }) {
   const renderInfo = (message, i) => {
     return (
       <Card className='chat-item mb-2 text-info' key={i}>
-        <Card.Body>
+        <Card.Body className='p-2'>
           <Card.Title>{message.content}</Card.Title>
         </Card.Body>
       </Card>
@@ -59,7 +57,7 @@ function Chat({ socket }) {
   const renderMessage = (message, i) => {
     return (
       <Card className='chat-item mb-2' key={i}>
-        <Card.Body>
+        <Card.Body className='p-2'>
           <Card.Title>{message.author}</Card.Title>
           <Card.Text>{message.content}</Card.Text>
         </Card.Body>
@@ -85,30 +83,29 @@ function Chat({ socket }) {
   }, [messages]);
 
   return (
-    <Container fluid='vh-100'>
-      <Col className='flex-column'>
-        <Card className='w-100'>
-          <Card.Body className='chat'>
-            {renderAllMessages()}
-            <div ref={messagesEndRef}/>
-          </Card.Body>
-        </Card>
-        <Form className='chat-form' noValidate validated={validated} onSubmit={handleSubmit}>
-          <Row className='w-100'>
-            <Col sm={9}>
-              <Form.Group className='chat-form-control m-2 w-100'>
-                <Form.Control required type='text' placeholder='Message'
-                  onChange={(e) => setMessageBuffer(e.target.value)}
-                />
-              </Form.Group>
-            </Col>
-            <Col sm={3}>
-              <Button className='chat-form-control m-2 w-100' type='submit'>Envoyer</Button>
-            </Col>
-          </Row>
-        </Form>
-      </Col>
-    </Container>
+    <Col className='flex-column'>
+      <Card className='w-100'>
+        <Card.Body className='chat'>
+          <Card.Title className='text-center'><div id='chat-title'>Chat</div></Card.Title>
+          {renderAllMessages()}
+          <div ref={messagesEndRef}/>
+        </Card.Body>
+      </Card>
+      <Form className='chat-form' noValidate validated={validated} onSubmit={handleSubmit}>
+        <Row className='w-100'>
+          <Col sm={8}>
+            <Form.Group className='m-2 w-100'>
+              <Form.Control required type='text' placeholder='Message'
+                onChange={(e) => setMessageBuffer(e.target.value)}
+              />
+            </Form.Group>
+          </Col>
+          <Col sm={4}>
+            <Button className='m-2 w-100' type='submit'>Envoyer</Button>
+          </Col>
+        </Row>
+      </Form>
+    </Col>
   );
 }
 
