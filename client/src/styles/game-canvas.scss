@@ -1,6 +1,6 @@
 @import 'theme.scss';
 
-select, button {
+select, button, input {
   padding: 1% 1% 1% 2%;
   font-size: 18px;
   border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
@@ -9,6 +9,10 @@ select, button {
   -moz-appearance: none;
   appearance: none;
   position: center;
+}
+
+input {
+  height: 90%;
 }
 
 select::-ms-expand {

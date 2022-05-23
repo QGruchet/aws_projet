@@ -3,28 +3,23 @@ import { Badge, Col, ListGroup } from 'react-bootstrap';
 import '../../styles/players-list.scss';
 
 function PlayersList({ socket }) {
-  const [players, setPlayers] = useState([
-    { id: 1, username: 'Player 1', score: 0 },
-    { id: 2, username: 'Player 2', score: 0 },
-    { id: 3, username: 'Player 3', score: 0 },
-  ]);
+  const [players, setPlayers] = useState([]);
 
   useEffect(() => {
-    socket.on('join', addPlayer);
-    socket.on('leave', removePlayer);
+    socket.on('update-players', updatePlayers);
 
     return () => {
-      socket.off('join', addPlayer);
-      socket.off('leave', removePlayer);
+      socket.off('update-players', updatePlayers);
     };
   }, [socket, players]);
 
-  const addPlayer = (data) => {
-    setPlayers([...messages, { id: data.id, username: data.username, score: 0 }]);
-  }
-
-  const removePlayer = (data) => {
-    setPlayers(players.filter(player => player.id !== data.id));
+  const updatePlayers = (data) => {
+    data.sort((a, b) => {
+      if (a.score > b.score) return -1;
+      if (a.score < b.score) return 1;
+      return 0;
+    });
+    setPlayers(data);
   }
 
   const renderPlayer = (p, i) => {
@@ -41,7 +36,7 @@ function PlayersList({ socket }) {
   }
 
   const renderAllPlayers = () => {
-    return players.map((m, i) => { return renderPlayer(m, i); });
+    return players.map((p, i) => { return renderPlayer(p, i); });
   }
 
   return (

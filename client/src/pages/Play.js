@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Button, Col, Container, Modal, Row } from 'react-bootstrap';
 import Navigation from '../components/Navigation';
 import Canvas from '../components/game/Canvas';
 import Chat from '../components/game/Chat';
@@ -8,6 +8,7 @@ import AuthService from '../services/auth.service';
 
 const Play = () => {
   const [socket] = useState(AuthService.gameSocket());
+  socket.emit('join');
 
   return (
     <Container fluid='w-100'>

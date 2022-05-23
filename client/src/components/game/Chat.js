@@ -10,10 +10,12 @@ function Chat({ socket }) {
   const [messageBuffer, setMessageBuffer] = useState('');
 
   useEffect(() => {
+    socket.on('clear-chat', clearChat);
     socket.on('info', addInfo);
     socket.on('message', addMessage);
 
     return () => {
+      socket.off('clear-chat', clearChat);
       socket.off('info', addInfo);
       socket.off('message', addMessage);
     };
@@ -29,6 +31,10 @@ function Chat({ socket }) {
     setMessages([...messages, { type: 'message', author: data.author, content: data.content }]);
     if (messages.length >= maxMessages)
       setMessages(messages.slice(messages.length - maxMessages));
+  };
+
+  const clearChat = () => {
+    setMessages([]);
   };
 
   const handleSubmit = (event) => {

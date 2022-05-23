@@ -2,27 +2,21 @@ const LobbySettings = require('./lobby-settings.class');
 const Player = require('./player.class');
 
 class Lobby {
-  #id;
-  #ownerId;
-  #players;
+  id;
+  ownerId;
+  players;
+  settings;
 
   /**
    * Creates a new empty lobby.
    * @param {string} id The identifier of the lobby.
+   * @param {LobbySettings} settings The settings of the lobby.
    */
-  constructor(id) {
-    this.#id = id;
-    this.#ownerId = undefined;
-    this.#players = new Map();
-    this.settings = new LobbySettings();
-  }
-
-  /**
-   * Gets the identifier of the lobby.
-   * @returns {string} The identifier of the lobby.
-   */
-  get id() {
-    return this.#id;
+  constructor(id, settings) {
+    this.id = id;
+    this.ownerId = undefined;
+    this.players = new Map();
+    this.settings = settings;
   }
 
   /**
@@ -30,7 +24,7 @@ class Lobby {
    * @returns {Player} The owner of the lobby.
    */
   get owner() {
-    return this.#players.get(this.#ownerId);
+    return this.players.get(this.ownerId);
   }
 
   /**
@@ -38,8 +32,8 @@ class Lobby {
    * @param {number} playerId The player's id.
    * @returns {Player} The player or undefined if it doesn't exist.
   */
-  find(playerId) {
-    return this.#players.get(playerId);
+  findBy(playerId) {
+    return this.players.get(playerId);
   }
 
   /**

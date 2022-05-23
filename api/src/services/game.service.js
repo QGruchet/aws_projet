@@ -1,71 +1,28 @@
-const Lobby = require('./game/lobby.class');
-const LobbyManager = require('./game/lobby-manager.class');
-const Player = require('./game/player.class');
 const User = require('../models/user.model');
 const Random = require("../utils/random.utils");
 
 class GameService {
-  #lobbyManager;
-
   constructor() {
-    this.#lobbyManager = new LobbyManager();
+    this.round = 1;
+    this.maxRounds = 10;
+    this.players = new Map();
+    this.possibleDrawers = new Set();
   }
 
   /**
-   * Assigns a random lobby to the player.
-   * @param {number} playerId The player's id.
-   * @returns {Lobby} The lobby where the player was assigned or undefined on failure.
-   */
-   assign(playerId) {
-    const lobby = this.#lobbyManager.selectRandomPublicLobby();
-    lobby.join(playerId);
-    return lobby;
-  }
-
-  /**
-   * Creates a new lobby.
-   * @param {Player} owner The owner of the lobby.
-   * @returns The new lobby.
-   */
-   createLobby(owner) {
-    // Las Vegas algorithm
-    let lobbyId = undefined;
-    do
-      lobbyId = Random.generateHexString(16);
-    while (this.lobbies.has(lobbyId));
-    const lobby = new Lobby();
-    lobby.join(owner);
-    this.lobbies.set(lobbyId, lobby);
-    return lobby;
-  }
-
-  /**
-   * Disconnects a client.
-   * @param {string} socketId  The client's socket id.
-   * @returns {Lobby} The lobby where the client was disconnected from or undefined if the client wasn't playing.
-   */
-   disconnect(socketId) {
-    const lobby = this.#lobbyManager.find(0);
-    if (!lobby)
-      return undefined;
-    if (lobby.isEmpty())
-      this.#lobbyManager.remove(0);
-    return lobby;
-  }
-
-  /**
-   * Joins a lobby.
+   * Joins the game.
    * @param {User} user The user to join.
    * @param {string} lobbyId The lobby's id.
-   * @returns {Lobby} The lobby or undefined if it doesn't exist.
    */
-  join(user, lobbyId) {
-    const lobby = this.#lobbyManager.find(lobbyId);
-    if (!lobby)
-      return undefined;
-    lobby.join(user);
-    this.clients.set(user.id, lobbyId);
-    return lobby;
+  join(user) {
+    const player = { username: user.name, score: 0 };
+    this.players.set(user.id, player);
+    this.possibleDrawers.add(user.id);
+    return player;
+  }
+
+  leave(user) {
+    this.players.delete(user.id);
   }
 }
 
