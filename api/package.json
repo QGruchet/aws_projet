@@ -17,6 +17,6 @@
     "jsonwebtoken": "^8.5.1",
     "pg-promise": "^10.11.1",
     "sequelize": "^6.19.0",
-    "socket.io": "^4.4.1"
+    "socket.io": "^4.5.3"
   }
 }
